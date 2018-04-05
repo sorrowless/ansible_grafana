@@ -1,0 +1,16 @@
+---
+# User-defined dict
+grafana: {}
+# Internal dict to merge with user one
+grafana_data:
+  # Host dir to store grafana data
+  grafana_storage: /var/grafana/storage
+  # Docker labels
+  docker_labels: []
+
+# Docker-related networking settings
+docker:
+  network_name: internal.loc
+  network_subnet: 172.22.101.0/24
+  network_gateway: 172.22.101.1
+  network_iprange: 172.22.101.128/25

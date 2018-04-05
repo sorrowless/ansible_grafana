@@ -1,0 +1,6 @@
+---
+- name: Install and configure Grafana
+  hosts: localhost
+  remote_user: root
+  roles:
+    - { role: grafana, tags: [ 'grafana' ] }

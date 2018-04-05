@@ -1,0 +1,58 @@
+---
+- name: Grafana | Install needed packages
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - docker.io
+    - python-docker
+    - docker-compose
+
+- name: Grafana | Ensure docker daemon enabled
+  systemd:
+    name: docker.service
+    state: started
+    enabled: yes
+
+- name: Grafana | Configure network ranges for docker hosts
+  docker_network:
+    name: "{{ docker.network_name }}"
+    driver_options:
+      com.docker.network.bridge.name: net2
+    ipam_options:
+      subnet: '{{ docker.network_subnet }}'
+      gateway: '{{ docker.network_gateway }}'
+      iprange: '{{ docker.network_iprange }}'
+
+- name: Grafana | Merge user data with default
+  set_fact:
+    grafana: "{{ grafana_data | combine(grafana, recursive=True) }}"
+  tags:
+    - always
+
+- name: Grafana | Create needed directories for Grafana
+  file:
+    dest: "{{ grafana.grafana_storage }}"
+    state: directory
+    mode: 0755
+
+- name: Grafana | Start docker Grafana container
+  docker_service:
+    project_name: grafana
+    definition:
+      version: '2'
+      services:
+        grafana:
+          image: "grafana/grafana"
+          container_name: "grafana"
+          ports:
+            - "127.0.0.1:3033:3000"
+          volumes:
+            - "{{ grafana.grafana_storage }}:/var/lib/grafana"
+          hostname: "grafana"
+          restart: always
+          labels: "{{ grafana.docker_labels }}"
+      networks:
+        default:
+          external:
+            name: "{{ docker.network_name }}"
