@@ -5,6 +5,9 @@ grafana: {}
 grafana_data:
   # Host dir to store grafana data
   grafana_storage: /var/grafana/storage
+  provisioning_dir: /var/grafana/provisioning
+  admin_user: admin
+  admin_password: password
   # Docker labels
   docker_labels: []
 

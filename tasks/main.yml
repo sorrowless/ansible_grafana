@@ -23,6 +23,7 @@
       subnet: '{{ docker.network_subnet }}'
       gateway: '{{ docker.network_gateway }}'
       iprange: '{{ docker.network_iprange }}'
+  when: docker.network_name != 'host'
 
 - name: Grafana | Merge user data with default
   set_fact:
@@ -30,11 +31,56 @@
   tags:
     - always
 
-- name: Grafana | Create needed directories for Grafana
+- name: Grafana | Create storage directory for Grafana
   file:
     dest: "{{ grafana.grafana_storage }}"
     state: directory
+    # TODO(sbog): change it from 0777 to according 0755 and fix user/group ownership
+    mode: 0777
+    owner: root
+    group: root
+
+- name: Grafana | Create provisioning directory
+  file:
+    dest: "{{ item }}"
+    state: directory
     mode: 0755
+    owner: root
+    group: root
+  with_items:
+    - "{{ grafana.provisioning_dir }}"
+    - "{{ grafana.provisioning_dir }}/datasources"
+    - "{{ grafana.provisioning_dir }}/dashboards"
+    - "{{ grafana.provisioning_dir }}/notifiers"
+    - "{{ grafana.provisioning_dir }}/dashboards_list"
+
+- name: Grafana | Ensure datasources
+  copy:
+    src: "{{ item }}"
+    dest: "{{ grafana.provisioning_dir }}/datasources/"
+    owner: root
+    group: root
+    mode: 0644
+  with_fileglob:
+    - "datasources/*"
+
+- name: Grafana | Ensure dashboards configuration
+  template:
+    src: dashboards/dashboards.yaml
+    dest: "{{ grafana.provisioning_dir }}/dashboards/"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Grafana | Ensure dashboards themselves
+  copy:
+    src: "{{ item }}"
+    dest: "{{ grafana.provisioning_dir }}/dashboards_list/"
+    owner: root
+    group: root
+    mode: 0644
+  with_fileglob:
+    - "dashboards/*"
 
 - name: Grafana | Start docker Grafana container
   docker_service:
@@ -49,10 +95,40 @@
             - "127.0.0.1:3033:3000"
           volumes:
             - "{{ grafana.grafana_storage }}:/var/lib/grafana"
+            - "{{ grafana.provisioning_dir }}:/etc/grafana/provisioning"
           hostname: "grafana"
           restart: always
           labels: "{{ grafana.docker_labels }}"
+          environment:
+            GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+            GF_SECURITY_ADMIN_USER: "{{ grafana.admin_user }}"
+            GF_SECURITY_ADMIN_PASSWORD: "{{ grafana.admin_password }}"
       networks:
         default:
           external:
             name: "{{ docker.network_name }}"
+  when: docker.network_name != 'host'
+
+- name: Grafana | Start docker Grafana container
+  docker_service:
+    project_name: grafana
+    definition:
+      version: '2'
+      services:
+        grafana:
+          image: "grafana/grafana"
+          container_name: "grafana"
+          ports:
+            - "127.0.0.1:3033:3000"
+          volumes:
+            - "{{ grafana.grafana_storage }}:/var/lib/grafana"
+            - "{{ grafana.provisioning_dir }}:/etc/grafana/provisioning"
+          hostname: "grafana"
+          restart: always
+          labels: "{{ grafana.docker_labels }}"
+          environment:
+            GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+            GF_SECURITY_ADMIN_USER: "{{ grafana.admin_user }}"
+            GF_SECURITY_ADMIN_PASSWORD: "{{ grafana.admin_password }}"
+          network_mode: host
+  when: docker.network_name == 'host'
