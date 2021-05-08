@@ -1,5 +1,5 @@
 datasources:
   - name: Prometheus
-    url: http://localhost:8428
+    url: http://victoriametrics:8428
     type: prometheus
     access: proxy

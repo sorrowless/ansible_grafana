@@ -12,8 +12,4 @@ grafana_data:
   docker_labels: []
 
 # Docker-related networking settings
-docker:
-  network_name: internal.loc
-  network_subnet: 172.22.101.0/24
-  network_gateway: 172.22.101.1
-  network_iprange: 172.22.101.128/25
+grafana_docker_network_name: prom_network

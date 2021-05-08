@@ -1,5 +1,5 @@
 {
-  "annotations": {
+    "annotations": {
     "list": [
       {
         "builtIn": 1,
@@ -22,7 +22,7 @@
   "gnetId": 7362,
   "graphTooltip": 1,
   "id": 3,
-  "iteration": 1589446945568,
+  "iteration": 1620506147398,
   "links": [
     {
       "icon": "dashboard",
@@ -4813,25 +4813,41 @@
         "type": "interval"
       },
       {
+        "allValue": null,
+        "datasource": "Prometheus",
+        "definition": "label_values(mysql_up, dns_hostname)",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "hostname",
+        "query": "label_values(mysql_up, dns_hostname)",
+        "refresh": 0,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
         "allFormat": "glob",
         "allValue": null,
-        "current": {
-          "text": "z-we-e-l-p-cpr-cur-02.infra.oom.ag",
-          "value": "z-we-e-l-p-cpr-cur-02.infra.oom.ag"
-        },
         "datasource": "Prometheus",
-        "definition": "",
-        "hide": 0,
+        "definition": "query_result(mysql_up{dns_hostname=\"$hostname\"})",
+        "hide": 2,
         "includeAll": false,
         "label": "Host",
         "multi": false,
         "multiFormat": "regex values",
         "name": "host",
         "options": [],
-        "query": "label_values(mysql_up, instance)",
+        "query": "query_result(mysql_up{dns_hostname=\"$hostname\"})",
         "refresh": 1,
         "refresh_on_load": false,
-        "regex": "",
+        "regex": "/.*instance=\"([^\"]+).*/",
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": null,
@@ -4881,5 +4897,6 @@
   "timezone": "browser",
   "title": "MySQL Overview",
   "uid": "MQWgroiiz",
-  "version": 1
+  "version": 6
 }
+

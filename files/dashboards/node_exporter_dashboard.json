@@ -16,8 +16,8 @@
   "editable": true,
   "gnetId": 11074,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1580905079218,
+  "id": 2,
+  "iteration": 1620506033722,
   "links": [
     {
       "asDropdown": false,
@@ -276,7 +276,7 @@
         "orientation": "horizontal",
         "showUnfilled": true
       },
-      "pluginVersion": "6.6.0",
+      "pluginVersion": "6.6.1",
       "targets": [
         {
           "expr": "100 - (avg(irate(node_cpu_seconds_total{instance=~\"$node\",mode=\"idle\"}[30m])) * 100)",
@@ -2151,20 +2151,15 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "selected": true,
-          "text": "137.117.162.48",
-          "value": "137.117.162.48"
-        },
         "datasource": "Prometheus",
-        "definition": "label_values(node_uname_info, job)",
+        "definition": "label_values(node_uname_info, nodename)",
         "hide": 0,
         "includeAll": false,
-        "label": "JOB",
+        "label": "Host",
         "multi": false,
-        "name": "job",
+        "name": "hostname",
         "options": [],
-        "query": "label_values(node_uname_info, job)",
+        "query": "label_values(node_uname_info, nodename)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2177,25 +2172,19 @@
       },
       {
         "allValue": null,
-        "current": {
-          "text": "All",
-          "value": [
-            "$__all"
-          ]
-        },
         "datasource": "Prometheus",
-        "definition": "label_values(node_uname_info{job=~\"$job\"}, nodename)",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Host",
-        "multi": true,
-        "name": "hostname",
+        "definition": "label_values(node_uname_info{nodename=~\"$hostname\"}, job)",
+        "hide": 2,
+        "includeAll": false,
+        "label": "JOB",
+        "multi": false,
+        "name": "job",
         "options": [],
-        "query": "label_values(node_uname_info{job=~\"$job\"}, nodename)",
+        "query": "label_values(node_uname_info{nodename=~\"$hostname\"}, job)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
-        "sort": 0,
+        "sort": 1,
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
@@ -2205,15 +2194,10 @@
       {
         "allFormat": "glob",
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
         "datasource": "Prometheus",
         "definition": "label_values(node_uname_info{nodename=~\"$hostname\"},instance)",
-        "hide": 0,
-        "includeAll": true,
+        "hide": 2,
+        "includeAll": false,
         "label": "Connection",
         "multi": false,
         "multiFormat": "regex values",
@@ -2233,8 +2217,8 @@
       {
         "allValue": null,
         "current": {
-          "text": "/",
-          "value": "/"
+          "text": "/data",
+          "value": "/data"
         },
         "datasource": "Prometheus",
         "definition": "",
@@ -2259,10 +2243,8 @@
         "allFormat": "glob",
         "allValue": null,
         "current": {
-          "isNone": true,
-          "selected": true,
-          "text": "None",
-          "value": ""
+          "text": "production",
+          "value": "production"
         },
         "datasource": "Prometheus",
         "definition": "",
@@ -2348,5 +2330,5 @@
   "timezone": "browser",
   "title": "Node Exporter for Prometheus Dashboard v1102",
   "uid": "hb7fSE0Zz",
-  "version": 2
+  "version": 4
 }
