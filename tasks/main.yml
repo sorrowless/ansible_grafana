@@ -57,7 +57,7 @@
     - "dashboards/*"
 
 - name: Grafana | Start docker Grafana container
-  docker_service:
+  community.docker.docker_compose:
     project_name: grafana
     definition:
       version: '2'
