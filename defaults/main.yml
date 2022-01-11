@@ -13,3 +13,10 @@ grafana_data:
 
 # Docker-related networking settings
 grafana_docker_network_name: prom_network
+
+user_list: []
+  # - name: "Mrs. X"
+  #   email: "x@gmail.com"
+  #   password: "passwordX"
+
+grafana_url: http://localhost:3000
