@@ -82,34 +82,6 @@
           external:
             name: "{{ grafana_docker_network_name }}"
 
-- name: Pause for 10 seconds to start container
-  pause:
-    seconds: 10
-
-- name: Get grafana users
-  uri:
-    url: "{{ grafana_url }}/api/users"
-    user: "{{ grafana.admin_user }}"
-    password: "{{ grafana.admin_password }}"
-    force_basic_auth: yes
-    method: GET
-    headers:
-      Accept: application/json
-      Content-Type: application/json
-  register: grafana_exist_users
-  tags: [add_users]
-
-- name: Parse users
-  set_fact:
-    grafana_users: "{{ grafana_users|default([]) + [item.email] }}"
-  with_items: "{{ grafana_exist_users.json }}"
-  tags: [add_users]
-
-- name: Show grafana_users.email
-  ansible.builtin.debug:
-    var: grafana_users
-  tags: [add_users]
-
 - name: Create new users
   uri:
     url: "{{ grafana_url }}/api/admin/users"
@@ -126,7 +98,10 @@
       login: "{{ item.email }}"
       password: "{{ item.password }}"
     body_format: json
-  when:
-    - item.email not in grafana_users
+  register: result
+  failed_when: result.status not in [200, 412]
+  changed_when: result.status == 200
+  until: result.status != -1
+  retries: 5
   with_items: "{{ user_list }}"
   tags: [add_users]
