@@ -81,3 +81,27 @@
         default:
           external:
             name: "{{ grafana_docker_network_name }}"
+
+- name: Create new users
+  uri:
+    url: "{{ grafana_url }}/api/admin/users"
+    user: "{{ grafana.admin_user }}"
+    password: "{{ grafana.admin_password }}"
+    force_basic_auth: yes
+    method: POST
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    body:
+      name: "{{ item.name }}"
+      email: "{{ item.email }}"
+      login: "{{ item.email }}"
+      password: "{{ item.password }}"
+    body_format: json
+  register: result
+  failed_when: not (result.status == 200 or (result.status == 412 and result.json.message is regex("^User with email .* or username .* already exists$")))
+  changed_when: result.status == 200
+  until: result.status != -1
+  retries: 5
+  with_items: "{{ user_list }}"
+  tags: [add_users]
