@@ -14,9 +14,15 @@ grafana_data:
 # Docker-related networking settings
 grafana_docker_network_name: prom_network
 
-user_list: []
+grafana_user_list: []
   # - name: "Mrs. X"
   #   email: "x@gmail.com"
   #   password: "passwordX"
 
 grafana_url: http://localhost:3000
+grafana_datasources:
+  - name: Prometheus
+    url: http://victoriametrics:8428
+    type: prometheus
+    access: proxy
+    isDefault: true

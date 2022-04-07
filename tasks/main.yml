@@ -29,14 +29,14 @@
     - "{{ grafana.provisioning_dir }}/dashboards_list"
 
 - name: Grafana | Ensure datasources
-  copy:
+  template:
     src: "{{ item }}"
-    dest: "{{ grafana.provisioning_dir }}/datasources/"
+    dest: "{{ grafana.provisioning_dir }}/datasources/{{ item|basename }}"
     owner: root
     group: root
     mode: 0644
   with_fileglob:
-    - "datasources/*"
+    - "../templates/datasources/*"
 
 - name: Grafana | Ensure dashboards configuration
   template:
@@ -103,5 +103,5 @@
   changed_when: result.status == 200
   until: result.status != -1
   retries: 5
-  with_items: "{{ user_list }}"
+  with_items: "{{ grafana_user_list }}"
   tags: [add_users]
