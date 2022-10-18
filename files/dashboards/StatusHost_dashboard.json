@@ -65,7 +65,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1666021153602,
+  "iteration": 1666113069972,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -271,7 +271,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "UP_STATUS",
+      "title": "Exportes_Status",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -415,7 +415,7 @@
           "refId": "A"
         }
       ],
-      "title": "DOWN_STATUS",
+      "title": "Down_Host_Status",
       "type": "timeseries"
     }
   ],
@@ -455,8 +455,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Custom dashboard",
+  "title": "StatusHost dashboard",
   "uid": "OM3fNam4k",
-  "version": 3,
+  "version": 5,
   "weekStart": ""
 }
