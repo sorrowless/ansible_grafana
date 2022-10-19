@@ -1,35 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_VICTORIAMETRICS",
-      "label": "VictoriaMetrics",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__elements": [],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "8.4.0"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -52,7 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 15,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -72,7 +41,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_VICTORIAMETRICS}"
+        "uid": "P4169E866C3094E38"
       },
       "fieldConfig": {
         "defaults": {
@@ -122,7 +91,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_VICTORIAMETRICS}"
+            "uid": "P4169E866C3094E38"
           },
           "exemplar": true,
           "expr": "blockchain_btc_mainnet_block_number_diff",
@@ -138,7 +107,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_VICTORIAMETRICS}"
+        "uid": "P4169E866C3094E38"
       },
       "fieldConfig": {
         "defaults": {
@@ -184,7 +153,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_VICTORIAMETRICS}"
+            "uid": "P4169E866C3094E38"
           },
           "exemplar": true,
           "expr": "blockchain_btc_mainnet_local_block_number",
@@ -200,7 +169,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_VICTORIAMETRICS}"
+        "uid": "P4169E866C3094E38"
       },
       "fieldConfig": {
         "defaults": {
@@ -246,7 +215,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_VICTORIAMETRICS}"
+            "uid": "P4169E866C3094E38"
           },
           "exemplar": true,
           "expr": "blockchain_btc_mainnet_remote_block_number",
@@ -275,7 +244,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_VICTORIAMETRICS}"
+        "uid": "P4169E866C3094E38"
       },
       "fieldConfig": {
         "defaults": {
@@ -325,7 +294,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_VICTORIAMETRICS}"
+            "uid": "P4169E866C3094E38"
           },
           "exemplar": true,
           "expr": "blockchain_bsc_mainnet_block_number_diff{}",
@@ -341,7 +310,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_VICTORIAMETRICS}"
+        "uid": "P4169E866C3094E38"
       },
       "fieldConfig": {
         "defaults": {
@@ -387,7 +356,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_VICTORIAMETRICS}"
+            "uid": "P4169E866C3094E38"
           },
           "exemplar": true,
           "expr": "blockchain_bsc_mainnet_local_block_number",
@@ -403,7 +372,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_VICTORIAMETRICS}"
+        "uid": "P4169E866C3094E38"
       },
       "fieldConfig": {
         "defaults": {
@@ -449,7 +418,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_VICTORIAMETRICS}"
+            "uid": "P4169E866C3094E38"
           },
           "exemplar": true,
           "expr": "blockchain_bsc_mainnet_remote_block_number",
