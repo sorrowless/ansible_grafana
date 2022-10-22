@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "VictoriaMetrics",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -23,13 +26,16 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 9628,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1666182081974,
+  "id": 16,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "collapsed": false,
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -38,12 +44,22 @@
       },
       "id": 34,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "General Counters, CPU, Memory and File Descriptor Stats",
       "type": "row"
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -101,9 +117,13 @@
         },
         "textMode": "name"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_static{release=\"$release\", instance=\"$instance\"}",
           "format": "time_series",
           "instant": true,
@@ -117,7 +137,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "description": "start time of the process",
       "fieldConfig": {
@@ -176,9 +197,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "process_start_time_seconds{release=\"$release\", instance=\"$instance\"} * 1000",
           "format": "time_series",
           "intervalFactor": 2,
@@ -191,7 +216,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -249,9 +275,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "SUM(pg_stat_database_tup_fetched{datname=~\"$datname\", instance=~\"$instance\"})",
           "format": "time_series",
           "intervalFactor": 2,
@@ -264,7 +294,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -322,9 +353,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "SUM(pg_stat_database_tup_inserted{release=\"$release\", datname=~\"$datname\", instance=~\"$instance\"})",
           "format": "time_series",
           "intervalFactor": 2,
@@ -337,7 +372,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -395,9 +431,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "SUM(pg_stat_database_tup_updated{datname=~\"$datname\", instance=~\"$instance\"})",
           "format": "time_series",
           "intervalFactor": 2,
@@ -410,7 +450,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -468,9 +509,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_settings_max_connections{release=\"$release\", instance=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
@@ -486,7 +531,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "description": "Average user and system CPU time spent in seconds.",
       "fieldConfig": {
@@ -523,7 +569,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -533,6 +579,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "avg(rate(process_cpu_seconds_total{release=\"$release\", instance=\"$instance\"}[5m]) * 1000)",
           "format": "time_series",
           "intervalFactor": 2,
@@ -576,7 +626,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "description": "Virtual and Resident memory size in bytes, averages over 5 min interval",
       "fieldConfig": {
@@ -613,7 +664,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -623,6 +674,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "avg(rate(process_resident_memory_bytes{release=\"$release\", instance=\"$instance\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 2,
@@ -630,6 +685,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "avg(rate(process_virtual_memory_bytes{release=\"$release\", instance=\"$instance\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 2,
@@ -673,7 +732,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "description": "Number of open file descriptors",
       "fieldConfig": {
@@ -710,7 +770,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -720,6 +780,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "process_open_fds{release=\"$release\", instance=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 2,
@@ -759,6 +823,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -767,12 +835,22 @@
       },
       "id": 32,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Settings",
       "type": "row"
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -830,9 +908,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_settings_shared_buffers_bytes{instance=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
@@ -844,7 +926,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -902,9 +985,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_settings_effective_cache_size_bytes{instance=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
@@ -916,7 +1003,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -974,9 +1062,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_settings_maintenance_work_mem_bytes{instance=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
@@ -988,7 +1080,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1046,9 +1139,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_settings_work_mem_bytes{instance=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1061,7 +1158,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1120,9 +1218,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_settings_max_wal_size_bytes{instance=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1134,7 +1236,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1192,9 +1295,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_settings_random_page_cost{instance=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1206,7 +1313,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1264,9 +1372,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_settings_seq_page_cost",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1278,7 +1390,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1336,9 +1449,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_settings_max_worker_processes{instance=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1350,7 +1467,8 @@
     },
     {
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1408,9 +1526,13 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_settings_max_parallel_workers{instance=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1422,6 +1544,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1430,6 +1556,15 @@
       },
       "id": 30,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Database Stats",
       "type": "row"
     },
@@ -1439,7 +1574,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1478,7 +1614,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "pointradius": 3,
       "points": true,
       "renderer": "flot",
@@ -1488,6 +1624,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_stat_activity_count{datname=~\"$datname\", instance=~\"$instance\", state=\"active\"} !=0",
           "format": "time_series",
           "interval": "",
@@ -1534,7 +1674,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1571,7 +1712,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1581,6 +1722,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_database_xact_commit{instance=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1588,6 +1733,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_database_xact_rollback{instance=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1631,7 +1780,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1670,7 +1820,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1680,6 +1830,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_stat_database_tup_updated{datname=~\"$datname\", instance=~\"$instance\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
@@ -1724,7 +1878,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1773,6 +1928,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_stat_database_tup_fetched{datname=~\"$datname\", instance=~\"$instance\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
@@ -1817,7 +1976,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1866,6 +2026,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_stat_database_tup_inserted{datname=~\"$datname\", instance=~\"$instance\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
@@ -1910,7 +2074,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -1961,6 +2126,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_locks_count{datname=~\"$datname\", instance=~\"$instance\", mode=~\"$mode\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
@@ -2007,7 +2176,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2053,6 +2223,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_stat_database_tup_returned{datname=~\"$datname\", instance=~\"$instance\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
@@ -2097,7 +2271,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2143,6 +2318,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_stat_activity_count{datname=~\"$datname\", instance=~\"$instance\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
           "format": "time_series",
           "intervalFactor": 2,
@@ -2188,7 +2367,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2234,6 +2414,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_stat_database_tup_deleted{datname=~\"$datname\", instance=~\"$instance\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
@@ -2278,7 +2462,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "decimals": 2,
       "fieldConfig": {
@@ -2323,6 +2508,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "pg_stat_database_blks_hit{instance=\"$instance\", datname=~\"$datname\"} / (pg_stat_database_blks_read{instance=\"$instance\", datname=~\"$datname\"} + pg_stat_database_blks_hit{instance=\"$instance\", datname=~\"$datname\"})",
           "format": "time_series",
           "intervalFactor": 1,
@@ -2368,7 +2557,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2412,6 +2602,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_bgwriter_buffers_backend{instance=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -2419,6 +2613,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_bgwriter_buffers_alloc{instance=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -2426,6 +2624,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_bgwriter_buffers_backend_fsync{instance=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -2433,6 +2635,10 @@
           "refId": "C"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_bgwriter_buffers_checkpoint{instance=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -2440,6 +2646,10 @@
           "refId": "D"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_bgwriter_buffers_clean{instance=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -2483,7 +2693,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -2528,6 +2739,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_database_conflicts{instance=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -2535,6 +2750,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_database_deadlocks{instance=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -2579,7 +2798,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "description": "Total amount of data written to temporary files by queries in this database. All temporary files are counted, regardless of why the temporary file was created, and regardless of the log_temp_files setting.",
       "fieldConfig": {
@@ -2624,6 +2844,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_database_temp_bytes{instance=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -2668,7 +2892,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "VictoriaMetrics"
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2711,6 +2936,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_bgwriter_checkpoint_write_time{instance=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -2718,6 +2947,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
           "expr": "irate(pg_stat_bgwriter_checkpoint_sync_time{instance=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
@@ -2757,7 +2990,7 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 35,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [
     "postgres",
@@ -2769,11 +3002,12 @@
       {
         "current": {
           "selected": false,
-          "text": "embily_core",
-          "value": "embily_core"
+          "text": "cp_testnet",
+          "value": "cp_testnet"
         },
         "datasource": {
-          "uid": "VictoriaMetrics"
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
         },
         "definition": "label_values(pg_up, dns_hostname)",
         "hide": 0,
@@ -2797,11 +3031,12 @@
       {
         "current": {
           "selected": false,
-          "text": "w-we-e-l-p-emb-app-03.infra.oom.ag:9187",
-          "value": "w-we-e-l-p-emb-app-03.infra.oom.ag:9187"
+          "text": "o-tm-e-l-p-cpr-mix-02.infra.oom.ag:9187",
+          "value": "o-tm-e-l-p-cpr-mix-02.infra.oom.ag:9187"
         },
         "datasource": {
-          "uid": "VictoriaMetrics"
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
         },
         "definition": "query_result(pg_up{dns_hostname=\"$hostname\"})",
         "hide": 2,
@@ -2825,16 +3060,13 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": {
-          "uid": "VictoriaMetrics"
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
         },
         "definition": "",
         "hide": 0,
@@ -2917,16 +3149,13 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": {
-          "uid": "VictoriaMetrics"
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
         },
         "definition": "",
         "hide": 0,
@@ -2956,7 +3185,8 @@
           "value": ""
         },
         "datasource": {
-          "uid": "VictoriaMetrics"
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
         },
         "definition": "",
         "hide": 2,
@@ -2986,7 +3216,8 @@
           "value": ""
         },
         "datasource": {
-          "uid": "VictoriaMetrics"
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
         },
         "definition": "",
         "hide": 2,
@@ -3011,11 +3242,12 @@
       {
         "current": {
           "selected": false,
-          "text": "w-we-e-l-p-emb-app-03.infra.oom.ag:9187",
-          "value": "w-we-e-l-p-emb-app-03.infra.oom.ag:9187"
+          "text": "o-tm-e-l-p-cpr-mix-02.infra.oom.ag:9187",
+          "value": "o-tm-e-l-p-cpr-mix-02.infra.oom.ag:9187"
         },
         "datasource": {
-          "uid": "VictoriaMetrics"
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
         },
         "definition": "query_result(up{instance=\"$host\"})",
         "hide": 2,
@@ -3036,6 +3268,23 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "VictoriaMetrics",
+          "value": "VictoriaMetrics"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "DS_VICTORIAMETRICS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
       }
     ]
   },
@@ -3070,7 +3319,7 @@
   },
   "timezone": "",
   "title": "PostgreSQL Database",
-  "uid": "000000039",
-  "version": 3,
+  "uid": "000000040",
+  "version": 2,
   "weekStart": ""
 }

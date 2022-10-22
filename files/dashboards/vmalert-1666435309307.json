@@ -1,11 +1,21 @@
 {
-  "__inputs": [],
+  "__inputs": [
+    {
+      "name": "DS_VICTORIAMETRICS",
+      "label": "VictoriaMetrics",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
   "__requires": [
     {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "8.3.5"
+      "version": "9.1.7"
     },
     {
       "type": "panel",
@@ -42,7 +52,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -62,7 +75,6 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1644909221704,
   "links": [
     {
       "asDropdown": false,
@@ -105,6 +117,10 @@
   "panels": [
     {
       "collapsed": false,
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -113,6 +129,15 @@
       },
       "id": 11,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "General ($instance)",
       "type": "row"
     },
@@ -181,9 +206,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.5",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "uid": "$ds"
+          },
           "exemplar": false,
           "expr": "count(vmalert_config_last_reload_successful{job=~\"$job\", instance=~\"$instance\"} < 1 ) or 0",
           "interval": "",
@@ -240,9 +268,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.5",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "uid": "$ds"
+          },
           "exemplar": false,
           "expr": "(sum(vmalert_alerting_rules_error{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"}) or vector(0)) + \n(sum(vmalert_recording_rules_error{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"}) or vector(0))",
           "interval": "",
@@ -295,9 +326,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.5",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "uid": "$ds"
+          },
           "exemplar": false,
           "expr": "count(vmalert_alerting_rules_error{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"})",
           "interval": "",
@@ -350,9 +384,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.5",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
+          "datasource": {
+            "uid": "$ds"
+          },
           "exemplar": false,
           "expr": "count(vmalert_recording_rules_error{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"})",
           "interval": "",
@@ -438,6 +475,9 @@
       ],
       "targets": [
         {
+          "datasource": {
+            "uid": "$ds"
+          },
           "exemplar": false,
           "expr": "sort((time() - vm_app_start_timestamp{job=~\"$job\", instance=~\"$instance\"}) or (up{job=~\"$job\", instance=~\"$instance\"}))",
           "format": "table",
@@ -498,7 +538,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.3.5",
+      "pluginVersion": "9.1.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -508,6 +548,9 @@
       "steppedLine": true,
       "targets": [
         {
+          "datasource": {
+            "uid": "$ds"
+          },
           "exemplar": false,
           "expr": "sort(sum(up{job=~\"$job\", instance=~\"$instance\"}) by (job, instance))",
           "format": "time_series",
@@ -591,7 +634,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.3.5",
+      "pluginVersion": "9.1.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -601,6 +644,9 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "uid": "$ds"
+          },
           "exemplar": false,
           "expr": "sum(increase(vmalert_alerts_fired_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval])) by(instance)",
           "interval": "",
@@ -682,7 +728,7 @@
         "alertThreshold": false
       },
       "percentage": false,
-      "pluginVersion": "8.3.5",
+      "pluginVersion": "9.1.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -692,6 +738,9 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "uid": "$ds"
+          },
           "exemplar": false,
           "expr": "sum(rate(vmalert_iteration_duration_seconds_sum{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"}[$__rate_interval])) by(group) / \nsum(rate(vmalert_iteration_duration_seconds_count{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"}[$__rate_interval])) by(group)",
           "interval": "",
@@ -767,7 +816,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.3.5",
+      "pluginVersion": "9.1.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -777,6 +826,9 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "uid": "$ds"
+          },
           "exemplar": false,
           "expr": "sum(rate(vmalert_execution_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval])) by (instance)",
           "interval": "",
@@ -852,7 +904,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.3.5",
+      "pluginVersion": "9.1.7",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -862,6 +914,9 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "uid": "$ds"
+          },
           "exemplar": false,
           "expr": "sum(increase(vmalert_execution_errors_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval])) by(instance)",
           "interval": "",
@@ -901,6 +956,10 @@
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -957,6 +1016,9 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "exemplar": false,
               "expr": "sum(vmalert_alerts_firing{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"}) by(group, alertname) > 0",
               "interval": "",
@@ -1042,6 +1104,9 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "exemplar": false,
               "expr": "sum(vmalert_alerting_rules_error{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"}) by(group, alertname) > 0",
               "interval": "",
@@ -1127,6 +1192,9 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "exemplar": false,
               "expr": "sum(vmalert_alerts_pending{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"}) by(group, alertname) > 0",
               "interval": "",
@@ -1212,6 +1280,9 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "exemplar": false,
               "expr": "sum(rate(vmalert_alerts_sent_total{job=~\"$job\", instance=~\"$instance\"}[$__rate_interval])) by(instance, addr)",
               "interval": "",
@@ -1301,6 +1372,9 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "exemplar": false,
               "expr": "sum(rate(vmalert_alerts_send_errors_total{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"}[$__rate_interval])) by(instance, addr)",
               "interval": "",
@@ -1343,11 +1417,24 @@
           }
         }
       ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Alerting rules ($instance)",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1404,6 +1491,9 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "exemplar": false,
               "expr": "topk(10, sum(vmalert_recording_rules_last_evaluation_samples{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"}) by(group, recording) > 0)",
               "interval": "",
@@ -1511,7 +1601,8 @@
                 "mean"
               ],
               "displayMode": "table",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single"
@@ -1520,6 +1611,9 @@
           "pluginVersion": "8.0.3",
           "targets": [
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "exemplar": false,
               "expr": "sum(vmalert_recording_rules_last_evaluation_samples{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"}) by(group, recording) < 1",
               "interval": "",
@@ -1577,6 +1671,9 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "exemplar": false,
               "expr": "sum(vmalert_recording_rules_error{job=~\"$job\", instance=~\"$instance\", group=~\"$group\"}) by(group, recording) > 0",
               "interval": "",
@@ -1615,11 +1712,24 @@
           }
         }
       ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Recording rules ($instance)",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1815,6 +1925,9 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "exemplar": false,
               "expr": "sum(process_resident_memory_bytes{job=~\"$job\", instance=~\"$instance\"}) by (instance)",
               "interval": "",
@@ -1822,6 +1935,9 @@
               "refId": "A"
             },
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "exemplar": false,
               "expr": "sum(process_resident_memory_anon_bytes{job=~\"$job\", instance=~\"$instance\"}) by (instance)",
               "hide": false,
@@ -1922,6 +2038,9 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "exemplar": false,
               "expr": "sum(process_open_fds{job=~\"$job\", instance=~\"$instance\"}) by (instance)",
               "format": "time_series",
@@ -1931,6 +2050,9 @@
               "refId": "A"
             },
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "expr": "min(process_max_fds{job=~\"$job\", instance=~\"$instance\"})",
               "format": "time_series",
               "interval": "",
@@ -2026,6 +2148,9 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "uid": "$ds"
+              },
               "expr": "sum(go_goroutines{job=~\"$job\", instance=~\"$instance\"}) by(instance)",
               "format": "time_series",
               "interval": "",
@@ -2067,12 +2192,21 @@
           }
         }
       ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Resource usage",
       "type": "row"
     }
   ],
   "refresh": false,
-  "schemaVersion": 34,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [
     "victoriametrics",
@@ -2162,6 +2296,23 @@
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "VictoriaMetrics",
+          "value": "VictoriaMetrics"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "DS_VICTORIAMETRICS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
       }
     ]
   },

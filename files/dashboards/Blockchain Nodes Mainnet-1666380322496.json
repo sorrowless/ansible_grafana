@@ -1,9 +1,43 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_VICTORIAMETRICS",
+      "label": "VictoriaMetrics",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.1.7"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,12 +55,16 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 15,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "collapsed": false,
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -35,13 +73,22 @@
       },
       "id": 8,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "BTC Mainnet",
       "type": "row"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P4169E866C3094E38"
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -86,12 +133,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P4169E866C3094E38"
+            "uid": "${DS_VICTORIAMETRICS}"
           },
           "exemplar": true,
           "expr": "blockchain_btc_mainnet_block_number_diff",
@@ -107,7 +154,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P4169E866C3094E38"
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -148,12 +195,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P4169E866C3094E38"
+            "uid": "${DS_VICTORIAMETRICS}"
           },
           "exemplar": true,
           "expr": "blockchain_btc_mainnet_local_block_number",
@@ -169,7 +216,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P4169E866C3094E38"
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -210,12 +257,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P4169E866C3094E38"
+            "uid": "${DS_VICTORIAMETRICS}"
           },
           "exemplar": true,
           "expr": "blockchain_btc_mainnet_remote_block_number",
@@ -230,6 +277,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -238,13 +289,22 @@
       },
       "id": 5,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "BSC Mainnet",
       "type": "row"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P4169E866C3094E38"
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -289,12 +349,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P4169E866C3094E38"
+            "uid": "${DS_VICTORIAMETRICS}"
           },
           "exemplar": true,
           "expr": "blockchain_bsc_mainnet_block_number_diff{}",
@@ -310,7 +370,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P4169E866C3094E38"
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -351,12 +411,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P4169E866C3094E38"
+            "uid": "${DS_VICTORIAMETRICS}"
           },
           "exemplar": true,
           "expr": "blockchain_bsc_mainnet_local_block_number",
@@ -372,7 +432,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "P4169E866C3094E38"
+        "uid": "${DS_VICTORIAMETRICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -413,12 +473,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.1.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P4169E866C3094E38"
+            "uid": "${DS_VICTORIAMETRICS}"
           },
           "exemplar": true,
           "expr": "blockchain_bsc_mainnet_remote_block_number",
@@ -433,11 +493,29 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 35,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "VictoriaMetrics",
+          "value": "VictoriaMetrics"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "DS_VICTORIAMETRICS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
   },
   "time": {
     "from": "now-6h",
@@ -447,6 +525,6 @@
   "timezone": "",
   "title": "Blockchain Nodes Mainnet",
   "uid": "1cwqc8mVz",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
