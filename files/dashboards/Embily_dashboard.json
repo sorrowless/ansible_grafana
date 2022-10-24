@@ -378,7 +378,25 @@
     "embily"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "VictoriaMetrics",
+          "value": "VictoriaMetrics"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "DS_VICTORIAMETRICS",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
   },
   "time": {
     "from": "now-1h",
@@ -412,7 +430,7 @@
   },
   "timezone": "browser",
   "title": "Embily dashboard",
-  "uid": "aUVzjy0Mk1",
+  "uid": "aUVzjy0Mk",
   "version": 1,
   "weekStart": ""
 }
