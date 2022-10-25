@@ -98,7 +98,7 @@
       "panels": [
         {
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "How many datapoints are in storage",
           "fieldConfig": {
@@ -161,7 +161,7 @@
         },
         {
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "The minimum free disk space left among all storage nodes.",
           "fieldConfig": {
@@ -224,7 +224,7 @@
         },
         {
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Average disk usage per datapoint.",
           "fieldConfig": {
@@ -288,7 +288,7 @@
         },
         {
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Total size of allowed memory via flag `-memory.allowedPercent` for all VM components",
           "fieldConfig": {
@@ -351,7 +351,7 @@
         },
         {
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "How many entries inverted index contains. This value is proportional to the number of unique timeseries in storage(cardinality).",
           "fieldConfig": {
@@ -414,7 +414,7 @@
         },
         {
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Total amount of used disk space",
           "fieldConfig": {
@@ -477,7 +477,7 @@
         },
         {
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Total number of available CPUs for all VM components. ",
           "fieldConfig": {
@@ -540,7 +540,7 @@
         },
         {
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Total size of available memory for all VM components.",
           "fieldConfig": {
@@ -604,7 +604,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "fieldConfig": {
             "defaults": {
@@ -699,7 +699,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "$ds"
+                "uid": "$DS_VICTORIAMETRICS"
               },
               "exemplar": false,
               "expr": "sort((time() - vm_app_start_timestamp{job=~\"$job\", instance=~\"$instance\"}) or (up{job=~\"$job\", instance=~\"$instance\"}))",
@@ -754,7 +754,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "fieldConfig": {
             "defaults": {
@@ -851,7 +851,7 @@
     {
       "collapsed": false,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "gridPos": {
         "h": 1,
@@ -870,7 +870,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "description": "How many datapoints are inserted into storage per second by protocol and accountID",
       "fieldConfig": {
@@ -963,7 +963,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "description": "* `*` - unsupported query path\n* `/write` - insert into VM\n* `/metrics` - query VM system metrics\n* `/query` - query instant values\n* `/query_range` - query over a range of time\n* `/series` - match a certain label set\n* `/label/{}/values` - query a list of label values (variables mostly)",
       "fieldConfig": {
@@ -1057,7 +1057,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "description": "* `*` - unsupported query path\n* `/write` - insert into VM\n* `/metrics` - query VM system metrics\n* `/query` - query instant values\n* `/query_range` - query over a range of time\n* `/series` - match a certain label set\n* `/label/{}/values` - query a list of label values (variables mostly)",
       "fieldConfig": {
@@ -1151,7 +1151,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "description": "The less time it takes is better.\n* `*` - unsupported query path\n* `/write` - insert into VM\n* `/metrics` - query VM system metrics\n* `/query` - query instant values\n* `/query_range` - query over a range of time\n* `/series` - match a certain label set\n* `/label/{}/values` - query a list of label values (variables mostly)",
       "fieldConfig": {
@@ -1245,7 +1245,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "description": "RPC errors are interconnection errors between cluster components. Errors rate should be 0 if network connection is stable and all components are up and operational.",
       "fieldConfig": {
@@ -1353,7 +1353,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "description": "Shows the rate of logging the messages by their level. Unexpected spike in rate is a good reason to check logs.",
       "fieldConfig": {
@@ -1449,7 +1449,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "description": "Shows the percentage of remaining disk space at `-storageDataPath` by instance",
       "fieldConfig": {
@@ -1554,7 +1554,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "description": "Shows the number of active time series with new data points inserted during the last hour. High value may result in ingestion slowdown. \n\nSee following link for details:",
       "fieldConfig": {
@@ -1651,7 +1651,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "gridPos": {
         "h": 1,
@@ -1667,7 +1667,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Amount of used memory (resident)\nContains memory share which can be freed by OS when needed.",
           "fieldConfig": {
@@ -1760,7 +1760,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "RSS share for memory allocated by the process itself. This share cannot be freed by the OS, so it must be taken into account by OOM killer.",
           "fieldConfig": {
@@ -1853,7 +1853,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "fieldConfig": {
             "defaults": {
@@ -1948,7 +1948,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows the CPU usage in the percentage from the limit.",
           "fieldConfig": {
@@ -1999,7 +1999,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "$ds"
+                "uid": "$DS_VICTORIAMETRICS"
               },
               "exemplar": false,
               "expr": "sum(rate(process_cpu_seconds_total{job=~\"$job\", instance=~\"$instance\"}[5m])) by(job, instance) / process_cpu_cores_available{job=~\"$job\", instance=~\"$instance\"}",
@@ -2059,7 +2059,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Panel shows the number of open file descriptors in the OS.\nReaching the limit of open files can cause various issues and must be prevented.\n\nSee how to change limits here https://medium.com/@muhammadtriwibowo/set-permanently-ulimit-n-open-files-in-ubuntu-4d61064429a",
           "fieldConfig": {
@@ -2169,7 +2169,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows average GC duration by instance",
           "fieldConfig": {
@@ -2264,7 +2264,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "fieldConfig": {
             "defaults": {
@@ -2359,7 +2359,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows the number of bytes read/write from the storage layer.",
           "fieldConfig": {
@@ -2469,7 +2469,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "fieldConfig": {
             "defaults": {
@@ -2564,7 +2564,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "fill": 0,
           "fillGradient": 0,
@@ -2648,7 +2648,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "fill": 0,
           "fillGradient": 0,
@@ -2733,7 +2733,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "gridPos": {
         "h": 1,
@@ -2749,7 +2749,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows the rate and total number of new series created over last 24h.\n\nHigh churn rate tightly connected with database performance and may result in unexpected OOM's or slow queries. It is recommended to always keep an eye on this metric to avoid unexpected cardinality \"explosions\".\n\nThe higher churn rate is, the more resources required to handle it. Consider to keep the churn rate as low as possible.\n\nTo investigate stats about most expensive series use `api/v1/status/tsdb` handler. More details here https://docs.victoriametrics.com/Cluster-VictoriaMetrics.html#url-format\n\nGood references to read:\n* https://www.robustperception.io/cardinality-is-key\n* https://valyala.medium.com/high-cardinality-tsdb-benchmarks-victoriametrics-vs-timescaledb-vs-influxdb-13e6ee64dd6b",
           "fieldConfig": {
@@ -2854,7 +2854,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Slow queries according to `search.logSlowQueryDuration` flag, which is `5s` by default.",
           "fieldConfig": {
@@ -2947,7 +2947,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "The percentage of slow inserts comparing to total insertion rate during the last 5 minutes. \n\nThe less value is better. If percentage remains high (>10%) during extended periods of time, then it is likely more RAM is needed for optimal handling of the current number of active time series. \n\nIn general, VictoriaMetrics requires ~1KB or RAM per active time series, so it should be easy calculating the required amounts of RAM for the current workload according to capacity planning docs. But the resulting number may be far from the real number because the required amounts of memory depends on may other factors such as the number of labels per time series and the length of label values.",
           "fieldConfig": {
@@ -3050,7 +3050,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "VictoriaMetrics limits the number of labels per each metric with `-maxLabelsPerTimeseries` command-line flag.\n\nThis prevents from ingesting metrics with too many labels. The value of `maxLabelsPerTimeseries` must be adjusted for your workload.\n\nWhen limit is exceeded (graph is > 0) - extra labels are dropped, which could result in unexpected identical time series.",
           "fieldConfig": {
@@ -3151,7 +3151,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "The value is above 0 when the vmstorage at the given `addr` communicates to the given vminsert node that it cannot accept new data because it is in the read-only mode.",
           "fieldConfig": {
@@ -3208,7 +3208,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "$ds"
+                "uid": "$DS_VICTORIAMETRICS"
               },
               "exemplar": true,
               "expr": "sum(vm_rpc_vmstorage_is_read_only{job=~\"$job_insert\", instance=~\"$instance\"}) by(instance, addr)",
@@ -3260,7 +3260,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows the percentage of used cache size from the allowed size by type. \nValues close to 100% show the maximum potential utilization.\nValues close to 0% show that cache is underutilized.",
           "fill": 0,
@@ -3304,7 +3304,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "$ds"
+                "uid": "$DS_VICTORIAMETRICS"
               },
               "exemplar": true,
               "expr": "vm_cache_size_bytes{job=~\"$job_storage\", instance=~\"$instance\"} / vm_cache_size_max_bytes{job=~\"$job\", instance=~\"$instance\"}",
@@ -3352,7 +3352,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows whether background merges were deferred because of not enough of disk space. \n\nBefore starting the data parts merge (improves compression and reduces number of files), VictoriaMetrics estimates if there is enough of disk space for the operation. If panel shows values higher than zero, it means no disk space left for merging operation.\n\nConsider extending the disk size or decreasing retention. ",
           "fieldConfig": {
@@ -3409,7 +3409,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "$ds"
+                "uid": "$DS_VICTORIAMETRICS"
               },
               "exemplar": true,
               "expr": "sum(vm_merge_need_free_disk_space{job=~\"$job_storage\", instance=~\"$instance\"}) by(instance)",
@@ -3461,7 +3461,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "gridPos": {
         "h": 1,
@@ -3477,7 +3477,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows number of pushed and sent rows. \n* `Pushed rows` - rows added to internal inserter buffers before send\n* `Sent rows` - successfully transmitted rows to storage nodes",
           "fieldConfig": {
@@ -3579,7 +3579,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Rate of RPC errors by type:\n* `Connection` - the number of connection errors to vmstorage node\n* `Dial` -  the number of dial errors to vmstorage node.\n* `Handshake` - the number of handshake errors to vmstorage node\n* `Rerouted` - errors appeared during rerouting of rows from un-healthy storage node to a healthy one.",
           "fieldConfig": {
@@ -3686,7 +3686,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "The number of rows rerouted to the vmstorage node from other nodes when they were unhealthy.",
           "fieldConfig": {
@@ -3781,7 +3781,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "The number of rows rerouted from the vmstorage node to healthy nodes when the given node was unhealthy.",
           "fieldConfig": {
@@ -3877,7 +3877,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "The number of rows or bytes that vminesrt internal buffer contains at the moment.",
           "fieldConfig": {
@@ -3978,7 +3978,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Network usage by internal VictoriaMetrics RPC protocol",
           "fieldConfig": {
@@ -4069,7 +4069,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "gridPos": {
         "h": 1,
@@ -4085,7 +4085,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "VictoriaMetrics stores various caches in RAM. Memory size for these caches may be limited with -`memory.allowedPercent` flag. Line `max allowed` shows max allowed memory size for cache.",
           "fieldConfig": {
@@ -4196,7 +4196,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "VictoriaMetrics stores various caches in RAM. Memory size for these caches may be limited with -`memory.allowedPercent` flag. Line `max allowed` shows max allowed memory size for cache.",
           "fieldConfig": {
@@ -4296,7 +4296,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "gridPos": {
         "h": 1,
@@ -4312,7 +4312,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows how many rows per second every storage node accepts. This metric doesn't show all stored rows since some of them may be dropped because of wrong timestamps or decode errors.",
           "fieldConfig": {
@@ -4406,7 +4406,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows the time needed to reach the 100% of disk capacity based on the following params:\n* free disk space;\n* row ingestion rate;\n* dedup rate;\n* compression.\n\nUse this panel for capacity planning in order to estimate the time remaining for running out of the disk space.",
           "fieldConfig": {
@@ -4500,7 +4500,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows how many datapoints are in the storage.",
           "fieldConfig": {
@@ -4595,7 +4595,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "How many datapoints are in RAM queue waiting to be written into storage. The number of pending data points should be in the range from 0 to `2*<ingestion_rate>`, since VictoriaMetrics pushes pending data to persistent storage every second. The index datapoints value in general is much lower.",
           "fieldConfig": {
@@ -4705,7 +4705,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows amount of on-disk space occupied by data points.",
           "fieldConfig": {
@@ -4799,7 +4799,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows amount of on-disk space occupied by inverted index.",
           "fieldConfig": {
@@ -4893,7 +4893,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "The number of on-going merges in storage nodes.  It is expected to have high numbers for `storage/small` metric.",
           "fieldConfig": {
@@ -4985,7 +4985,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "The number of rows merged per second by storage nodes.",
           "fieldConfig": {
@@ -5077,7 +5077,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows how many rows were ignored on insertion due to corrupted or out of retention timestamps.",
           "fill": 1,
@@ -5162,7 +5162,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Data parts of LSM tree.\nHigh number of parts could be an evidence of slow merge performance - check the resource utilization.\n* `indexdb` - inverted index\n* `storage/small` - recently added parts of data ingested into storage(hot data)\n* `storage/big` -  small parts gradually merged into big parts (cold data)",
           "fieldConfig": {
@@ -5258,7 +5258,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Value > 0 means vmstorage is in readonly mode.",
           "fill": 1,
@@ -5306,7 +5306,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "$ds"
+                "uid": "$DS_VICTORIAMETRICS"
               },
               "exemplar": true,
               "expr": "vm_storage_is_read_only{job=~\"$job_storage\", instance=~\"$instance\"}",
@@ -5354,7 +5354,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows how many ongoing insertions (not API /write calls) on disk are taking place, where:\n* `max` - equal to number of CPUs;\n* `current` - current number of goroutines busy with inserting rows into underlying storage.\n\nEvery successful API /write call results into flush on disk. The `max` is an internal limit and can't be changed. It is always equal to the number of CPUs. \n\nWhen `current` hits `max` constantly, it means storage is overloaded and requires more CPU.",
           "fill": 0,
@@ -5410,7 +5410,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "$ds"
+                "uid": "$DS_VICTORIAMETRICS"
               },
               "exemplar": true,
               "expr": "max(vm_concurrent_addrows_capacity{job=~\"$job_storage\", instance=~\"$instance\"})",
@@ -5421,7 +5421,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "$ds"
+                "uid": "$DS_VICTORIAMETRICS"
               },
               "exemplar": true,
               "expr": "sum(avg_over_time(vm_concurrent_addrows_current{job=~\"$job_storage\", instance=~\"$instance\"}[1m])) by(instance)",
@@ -5468,7 +5468,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "gridPos": {
         "h": 1,
@@ -5484,7 +5484,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Request rate accepted by vmselect nodes",
           "fieldConfig": {
@@ -5578,7 +5578,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows how many ongoing insertions are taking place.\n* `max` - equal to number of CPU * 2 by default. May be configured with `search.maxConcurrentRequests` flag\n* `current` - current number of goroutines busy with processing requests\n\nWhen `current` hits `max` constantly, it means vmselect node is overloaded and require more CPU or higher limits.",
           "fieldConfig": {
@@ -5690,7 +5690,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "",
           "fieldConfig": {
@@ -5796,7 +5796,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "uid": "$ds"
+        "uid": "$DS_VICTORIAMETRICS"
       },
       "gridPos": {
         "h": 1,
@@ -5812,7 +5812,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "* `*` - unsupported query path\n* `/write` - insert into VM\n* `/metrics` - query VM system metrics\n* `/query` - query instant values\n* `/query_range` - query over a range of time\n* `/series` - match a certain label set\n* `/label/{}/values` - query a list of label values (variables mostly)",
           "fieldConfig": {
@@ -5906,7 +5906,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows how many ongoing insertions are taking place.\n* `max` - equal to number of CPU * 4 by default. May be configured with `maxConcurrentInserts` flag;\n* `current` - current number of goroutines busy with processing requests.\n\n`-maxConcurrentInserts` limits the number of insert requests which may be actively processed at any given point in time. All the other insert requests are queued for up to `-insert.maxQueueDuration` in the hope they will get a chance to be processed. This queue is used mostly for absorbing spikes for incoming insert request rate.\n\nWhen `current` hits `max` constantly, it means vminsert node is overloaded and requires more CPU or higher limits.",
           "fieldConfig": {
@@ -6021,7 +6021,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "",
           "fieldConfig": {
@@ -6072,7 +6072,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "$ds"
+                "uid": "$DS_VICTORIAMETRICS"
               },
               "exemplar": true,
               "expr": "sum(rate(vm_tcplistener_read_bytes_total{job=~\"$job_insert\", instance=~\"$instance\"}[5m])) by (instance) * 8 > 0",
@@ -6120,7 +6120,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "",
           "fieldConfig": {
@@ -6216,7 +6216,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows the saturation level of connection between vminsert and vmstorage components. If the threshold of 0.9sec is reached, then the connection is saturated by more than 90% and vminsert won't be able to keep up. This usually means that more vminsert or vmstorage nodes must be added to the cluster in order to increase the total number of vminsert -> vmstorage links.\n",
           "fieldConfig": {
@@ -6325,7 +6325,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "$ds"
+            "uid": "$DS_VICTORIAMETRICS"
           },
           "description": "Shows if vmstorage node is reachable for vminsert. If below 1 means vmstorage is not reachable at this moment of time. ",
           "fieldConfig": {
@@ -6434,7 +6434,7 @@
         "hide": 0,
         "includeAll": false,
         "multi": false,
-        "name": "ds",
+        "name": "DS_VICTORIAMETRICS",
         "options": [],
         "query": "prometheus",
         "queryValue": "",
@@ -6446,7 +6446,7 @@
       {
         "current": {},
         "datasource": {
-          "uid": "$ds"
+          "uid": "$DS_VICTORIAMETRICS"
         },
         "definition": "label_values(vm_app_version{version=~\"^vminsert.*\"}, job)",
         "hide": 2,
@@ -6470,7 +6470,7 @@
       {
         "current": {},
         "datasource": {
-          "uid": "$ds"
+          "uid": "$DS_VICTORIAMETRICS"
         },
         "definition": "label_values(vm_app_version{version=~\"^vmselect.*\"}, job)",
         "hide": 2,
@@ -6494,7 +6494,7 @@
       {
         "current": {},
         "datasource": {
-          "uid": "$ds"
+          "uid": "$DS_VICTORIAMETRICS"
         },
         "definition": "label_values(vm_app_version{version=~\"^vmstorage.*\"}, job)",
         "hide": 2,
@@ -6518,7 +6518,7 @@
       {
         "current": {},
         "datasource": {
-          "uid": "$ds"
+          "uid": "$DS_VICTORIAMETRICS"
         },
         "definition": "label_values(vm_app_version{version=~\"^vm(insert|select|storage).*\"}, job)",
         "hide": 0,
@@ -6543,7 +6543,7 @@
         "allValue": ".*",
         "current": {},
         "datasource": {
-          "uid": "$ds"
+          "uid": "$DS_VICTORIAMETRICS"
         },
         "definition": "label_values(vm_app_version{job=~\"$job\"}, instance)",
         "hide": 0,
