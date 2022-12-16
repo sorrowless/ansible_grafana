@@ -105,3 +105,7 @@
   retries: 5
   with_items: "{{ grafana_user_list }}"
   tags: [add_users]
+
+- name: Import Loki tasks
+  import_tasks: loki.yml
+  when: grafana_loki_install

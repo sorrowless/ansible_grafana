@@ -1,0 +1,51 @@
+---
+- name: Grafana | Create common directory for Loki
+  file:
+    dest: "{{ grafana_loki_storage }}"
+    state: directory
+    # TODO(sbog): change it from 0777 to according 0755 and fix user/group ownership
+    mode: 0777
+    owner: root
+    group: root
+
+- name: Grafana | Create Loki specific directories
+  file:
+    dest: "{{ item }}"
+    state: directory
+    mode: 0755
+    owner: "{{ grafana_loki_directory_owner }}"
+    group: "{{ grafana_loki_directory_group }}"
+  with_items:
+    - "{{ grafana_loki_storage }}/data"
+    - "{{ grafana_loki_storage }}/data/chunks"
+    - "{{ grafana_loki_storage }}/data/rules"
+
+- name: Grafana | Ensure Loki config
+  template:
+    src: "loki/local-config.yaml"
+    dest: "{{ grafana_loki_storage }}/local-config.yaml"
+    owner: "{{ grafana_loki_directory_owner }}"
+    group: "{{ grafana_loki_directory_group }}"
+    mode: 0644
+
+- name: Loki | Start docker Loki container
+  community.docker.docker_compose:
+    project_name: loki
+    definition:
+      version: '2'
+      services:
+        loki:
+          image: "grafana/loki:2.6.1"
+          container_name: "loki"
+          hostname: "loki"
+          ports:
+            - "127.0.0.1:3100:3100"
+          command: "-config.file=/var/lib/loki/local-config.yaml"
+          volumes:
+            - "{{ grafana_loki_storage }}:/var/lib/loki"
+          restart: always
+          labels: "{{ grafana.docker_labels }}"
+      networks:
+        default:
+          external:
+            name: "{{ grafana_docker_network_name }}"
