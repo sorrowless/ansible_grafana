@@ -10,7 +10,7 @@ grafana_data:
   docker_labels: []
 
 grafana_storage: /var/grafana/storage
-provisioning_dir: /var/grafana/provisioning
+grafana_provisioning_dir: /var/grafana/provisioning
 grafana_ldap_host_config_path: /var/grafana/config
 
 # Docker-related networking settings

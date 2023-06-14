@@ -22,16 +22,16 @@
     owner: root
     group: root
   with_items:
-    - "{{ provisioning_dir }}"
-    - "{{ provisioning_dir }}/datasources"
-    - "{{ provisioning_dir }}/dashboards"
-    - "{{ provisioning_dir }}/notifiers"
-    - "{{ provisioning_dir }}/dashboards_list"
+    - "{{ grafana_provisioning_dir }}"
+    - "{{ grafana_provisioning_dir }}/datasources"
+    - "{{ grafana_provisioning_dir }}/dashboards"
+    - "{{ grafana_provisioning_dir }}/notifiers"
+    - "{{ grafana_provisioning_dir }}/dashboards_list"
 
 - name: Grafana | Ensure datasources
   template:
     src: "{{ item }}"
-    dest: "{{ provisioning_dir }}/datasources/{{ item|basename }}"
+    dest: "{{ grafana_provisioning_dir }}/datasources/{{ item|basename }}"
     owner: root
     group: root
     mode: 0644
@@ -41,7 +41,7 @@
 - name: Grafana | Ensure dashboards configuration
   template:
     src: dashboards/dashboards.yaml
-    dest: "{{ provisioning_dir }}/dashboards/"
+    dest: "{{ grafana_provisioning_dir }}/dashboards/"
     owner: root
     group: root
     mode: 0644
@@ -49,7 +49,7 @@
 - name: Grafana | Ensure dashboards themselves
   copy:
     src: "{{ item }}"
-    dest: "{{ provisioning_dir }}/dashboards_list/"
+    dest: "{{ grafana_provisioning_dir }}/dashboards_list/"
     owner: root
     group: root
     mode: 0644
@@ -87,7 +87,7 @@
             - "127.0.0.1:3000:3000"
           volumes:
             - "{{ grafana_storage }}:/var/lib/grafana"
-            - "{{ provisioning_dir }}:/etc/grafana/provisioning"
+            - "{{ grafana_provisioning_dir }}:/etc/grafana/provisioning"
             - "{{ grafana_ldap_host_config_path }}:{{ grafana_ldap_config_path}}"
           hostname: "grafana"
           restart: always
