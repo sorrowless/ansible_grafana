@@ -1,0 +1,20 @@
+---
+- name: Grafana | LDAP | Ensure config directory
+  file:
+    dest: "{{ grafana_ldap_host_config_path }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Grafana | LDAP | Ensure LDAP config
+  template:
+    src: config/ldap.toml.j2
+    dest: "{{ grafana_ldap_host_config_path }}/ldap.toml"
+    mode: 0644
+    owner: root
+    group: root
+
+- name: Grafana | LDAP | Set volumes with ldap config
+  set_fact:
+    grafana_volumes: "{{ grafana_volumes + [grafana_ldap_host_config_path + ':' + grafana_ldap_config_path] }}"

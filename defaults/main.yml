@@ -11,6 +11,10 @@ grafana_data:
   # Docker labels
   docker_labels: []
 
+grafana_volumes:
+  - "{{ grafana.grafana_storage }}:/var/lib/grafana"
+  - "{{ grafana.provisioning_dir }}:/etc/grafana/provisioning"
+
 # Docker-related networking settings
 grafana_docker_network_name: prom_network
 
@@ -31,3 +35,35 @@ grafana_loki_install: false
 grafana_loki_storage: /var/loki/
 grafana_loki_directory_owner: 10001
 grafana_loki_directory_group: 10001
+
+grafana_ldap_auth_enabled: false
+grafana_ldap_root: "dc=example,dc=com"
+grafana_ldap_host_config_path: /var/grafana/config
+grafana_ldap_config_path: /etc/grafana/config
+grafana_ldap_allow_sign_up: true
+grafana_ldap_servers:
+  - host: ldap01.example.com # required
+    port: 389
+    use_ssl: "false"
+    start_tls: "false"
+    ssl_skip_verify: "false"
+    bind_dn: "cn=reader,{{ grafana_ldap_root }}"
+    bind_password: "grafana"
+    timeout: "10"
+    search_filter: "(&(uid=%s)(objectClass=posixAccount)"
+    search_base_dns: "ou=users,{{ grafana_ldap_root }}"
+    attributes:
+      name: "givenName"
+      surname: "sn"
+      username: "cn"
+      member_of: "memberOf"
+      email: "mail"
+    # The first group mapping will be used
+    # https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/ldap/#group-mappings
+    group_mappings:
+      - group_dn: "cn=grafana.superadmins,ou=groups,{{ grafana_ldap_root }}"
+        org_role: "Admin"
+        org_id: "1"
+        grafana_admin: true
+      - group_dn: "cn=grafana.viewers,ou=groups,{{ grafana_ldap_root }}"
+        org_role: "Viewer"

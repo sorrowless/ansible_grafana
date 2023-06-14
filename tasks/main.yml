@@ -56,6 +56,11 @@
   with_fileglob:
     - "dashboards/*"
 
+- name: Grafana | Import LDAP configuration
+  import_tasks: ldap.yml
+  when: grafana_ldap_auth_enabled
+  tags: ldap
+
 - name: Grafana | Start docker Grafana container
   community.docker.docker_compose:
     project_name: grafana
@@ -67,9 +72,7 @@
           container_name: "grafana"
           ports:
             - "127.0.0.1:3000:3000"
-          volumes:
-            - "{{ grafana.grafana_storage }}:/var/lib/grafana"
-            - "{{ grafana.provisioning_dir }}:/etc/grafana/provisioning"
+          volumes: "{{ grafana_volumes }}"
           hostname: "grafana"
           restart: always
           labels: "{{ grafana.docker_labels }}"
@@ -77,6 +80,9 @@
             GF_PATHS_PROVISIONING: /etc/grafana/provisioning
             GF_SECURITY_ADMIN_USER: "{{ grafana.admin_user }}"
             GF_SECURITY_ADMIN_PASSWORD: "{{ grafana.admin_password }}"
+            GF_AUTH_LDAP_ENABLED: "{{ grafana_ldap_auth_enabled | string }}"
+            GF_AUTH_LDAP_CONFIG_FILE: "{{ grafana_ldap_config_path }}/ldap.toml"
+            GF_AUTH_LDAP_ALLOW_SIGN_UP: "{{ grafana_ldap_allow_sign_up | string }}"
       networks:
         default:
           external:

@@ -1,0 +1,30 @@
+{%for server in grafana_ldap_servers%}
+[[servers]]
+host = "{{ server.host }}"
+port = {{ server.port | default ("389") }}
+use_ssl = {{ server.use_ssl | default ("false") }}
+start_tls = {{ server.start_tls | default ("false") }}
+ssl_skip_verify = {{ server.ssl_skip_verify | default ("false") }}
+bind_dn = "{{ server.bind_dn | default ("cn=reader," + grafana_ldap_root) }}"
+bind_password = "{{ server.bind_password | default ("grafana") }}"
+timeout = {{ server.timeout | default ("10") }}
+search_filter = "{{ server.search_filter | default ("(&(uid=%s)(objectClass=posixAccount))") }}"
+search_base_dns = ["{{ server.search_base_dns | default ("ou=users," + grafana_ldap_root) }}"]
+
+[servers.attributes]
+name = "{{ server.attributes.name | default ("givenName")}}"
+surname = "{{ server.attributes.surname | default ("sn")}}"
+username = "{{ server.attributes.username | default ("cn")}}"
+member_of = "{{ server.attributes.member_of | default ("memberOf")}}"
+email = "{{ server.attributes.email | default ("mail")}}"
+{%for map in server.group_mappings%}
+
+[[servers.group_mappings]]
+group_dn = "{{ map.group_dn | default ("cn=grafana.viewers,ou=groups," + grafana_ldap_root) }}"
+org_role = "{{ map.org_role | default ("Viewer") }}"
+{%if map.grafana_admin | default (false)%}
+grafana_admin = true
+{%endif%}
+org_id = {{ map.org_id | default ("1") }}
+{%endfor%}
+{%endfor%}
