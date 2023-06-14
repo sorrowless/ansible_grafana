@@ -7,7 +7,7 @@
 
 - name: Grafana | Create storage directory for Grafana
   file:
-    dest: "{{ grafana.grafana_storage }}"
+    dest: "{{ grafana_storage }}"
     state: directory
     # TODO(sbog): change it from 0777 to according 0755 and fix user/group ownership
     mode: 0777
@@ -22,16 +22,16 @@
     owner: root
     group: root
   with_items:
-    - "{{ grafana.provisioning_dir }}"
-    - "{{ grafana.provisioning_dir }}/datasources"
-    - "{{ grafana.provisioning_dir }}/dashboards"
-    - "{{ grafana.provisioning_dir }}/notifiers"
-    - "{{ grafana.provisioning_dir }}/dashboards_list"
+    - "{{ provisioning_dir }}"
+    - "{{ provisioning_dir }}/datasources"
+    - "{{ provisioning_dir }}/dashboards"
+    - "{{ provisioning_dir }}/notifiers"
+    - "{{ provisioning_dir }}/dashboards_list"
 
 - name: Grafana | Ensure datasources
   template:
     src: "{{ item }}"
-    dest: "{{ grafana.provisioning_dir }}/datasources/{{ item|basename }}"
+    dest: "{{ provisioning_dir }}/datasources/{{ item|basename }}"
     owner: root
     group: root
     mode: 0644
@@ -41,7 +41,7 @@
 - name: Grafana | Ensure dashboards configuration
   template:
     src: dashboards/dashboards.yaml
-    dest: "{{ grafana.provisioning_dir }}/dashboards/"
+    dest: "{{ provisioning_dir }}/dashboards/"
     owner: root
     group: root
     mode: 0644
@@ -49,15 +49,28 @@
 - name: Grafana | Ensure dashboards themselves
   copy:
     src: "{{ item }}"
-    dest: "{{ grafana.provisioning_dir }}/dashboards_list/"
+    dest: "{{ provisioning_dir }}/dashboards_list/"
     owner: root
     group: root
     mode: 0644
   with_fileglob:
     - "dashboards/*"
 
-- name: Grafana | Import LDAP configuration
-  import_tasks: ldap.yml
+- name: Grafana | Create LDAP config directory
+  file:
+    dest: "{{ grafana_ldap_host_config_path }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Grafana | Ensure LDAP config
+  template:
+    src: config/ldap.toml.j2
+    dest: "{{ grafana_ldap_host_config_path }}/ldap.toml"
+    mode: 0644
+    owner: root
+    group: root
   when: grafana_ldap_auth_enabled
   tags: ldap
 
@@ -72,7 +85,10 @@
           container_name: "grafana"
           ports:
             - "127.0.0.1:3000:3000"
-          volumes: "{{ grafana_volumes }}"
+          volumes:
+            - "{{ grafana_storage }}:/var/lib/grafana"
+            - "{{ provisioning_dir }}:/etc/grafana/provisioning"
+            - "{{ grafana_ldap_host_config_path }}:{{ grafana_ldap_config_path}}"
           hostname: "grafana"
           restart: always
           labels: "{{ grafana.docker_labels }}"

@@ -4,16 +4,14 @@ grafana: {}
 # Internal dict to merge with user one
 grafana_data:
   # Host dir to store grafana data
-  grafana_storage: /var/grafana/storage
-  provisioning_dir: /var/grafana/provisioning
   admin_user: admin
   admin_password: password
   # Docker labels
   docker_labels: []
 
-grafana_volumes:
-  - "{{ grafana.grafana_storage }}:/var/lib/grafana"
-  - "{{ grafana.provisioning_dir }}:/etc/grafana/provisioning"
+grafana_storage: /var/grafana/storage
+provisioning_dir: /var/grafana/provisioning
+grafana_ldap_host_config_path: /var/grafana/config
 
 # Docker-related networking settings
 grafana_docker_network_name: prom_network
@@ -38,7 +36,6 @@ grafana_loki_directory_group: 10001
 
 grafana_ldap_auth_enabled: false
 grafana_ldap_root: "dc=example,dc=com"
-grafana_ldap_host_config_path: /var/grafana/config
 grafana_ldap_config_path: /etc/grafana/config
 grafana_ldap_allow_sign_up: true
 grafana_ldap_servers:
