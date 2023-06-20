@@ -41,7 +41,7 @@
       "name": "Time series",
       "version": ""
     }
-  ],
+  ], 
   "annotations": {
     "list": [
       {
@@ -68,7 +68,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 11,
   "links": [
     {
       "icon": "external link",
@@ -163,17 +163,18 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "up{job=\"grafana\"}",
+          "expr": "up{dns_hostname=\"$hostname\",job=\"grafana\"}",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 2,
+          "legendFormat": "__auto",
           "refId": "A",
           "step": 60
         }
@@ -243,17 +244,18 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "grafana_stat_totals_dashboard",
+          "expr": "grafana_stat_totals_dashboard{dns_hostname=\"$hostname\"}",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 2,
+          "legendFormat": "{{dns_hostname}}",
           "refId": "A",
           "step": 60
         }
@@ -323,17 +325,18 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "grafana_stat_total_users",
+          "expr": "grafana_stat_total_users{dns_hostname=\"$hostname\"}",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 2,
+          "legendFormat": "{{dns_hostname}}",
           "refId": "A",
           "step": 60
         }
@@ -403,17 +406,18 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "grafana_stat_total_playlists",
+          "expr": "grafana_stat_total_playlists{dns_hostname=\"$hostname\"}",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 2,
+          "legendFormat": "{{dns_hostname}}",
           "refId": "A",
           "step": 60
         }
@@ -422,12 +426,40 @@
       "type": "stat"
     },
     {
-      "columns": [],
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_VICTORIAMETRICS}"
       },
-      "fontSize": "100%",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "auto",
+            "inspect": false,
+            "minWidth": 50
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 5,
         "w": 4,
@@ -436,44 +468,27 @@
       },
       "id": 17,
       "links": [],
-      "scroll": false,
-      "showHeader": true,
-      "sort": {
-        "col": 0,
-        "desc": true
-      },
-      "styles": [
-        {
-          "alias": "Time",
-          "align": "auto",
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "link": false,
-          "pattern": "Time",
-          "type": "hidden"
-        },
-        {
-          "alias": "",
-          "align": "auto",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
           ],
-          "decimals": 0,
-          "pattern": "/.*/",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        }
-      ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "topk(1, grafana_info or grafana_build_info)",
-          "format": "time_series",
+          "expr": "grafana_build_info{dns_hostname=\"$hostname\"}",
+          "format": "table",
           "instant": true,
           "intervalFactor": 2,
           "legendFormat": "{{version}}",
@@ -482,8 +497,42 @@
         }
       ],
       "title": "Grafana version",
-      "transform": "timeseries_to_rows",
-      "type": "table-old"
+      "transformations": [
+        {
+          "id": "seriesToRows",
+          "options": {
+            "reducers": []
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Value": true,
+              "__name__": true,
+              "branch": true,
+              "dns_hostname": true,
+              "domainname": true,
+              "edition": true,
+              "env": true,
+              "goversion": true,
+              "hypervisor_name": true,
+              "hypervisor_type": true,
+              "instance": true,
+              "job": true,
+              "project": true,
+              "revision": true,
+              "scrape_type": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Metric": "Version"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
@@ -602,7 +651,7 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "sum by (statuscode) (irate(http_request_total{job='grafana'}[5m]))",
+          "expr": "sum by (code) (irate(grafana_api_response_status_total{dns_hostname=\"$hostname\",job='grafana'}[5m]))",
           "format": "time_series",
           "intervalFactor": 3,
           "legendFormat": "{{statuscode}}",
@@ -731,7 +780,7 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "sum(irate(grafana_api_response_status_total[5m]))",
+          "expr": "sum(irate(grafana_api_response_status_total{dns_hostname=\"$hostname\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 4,
           "legendFormat": "api",
@@ -743,7 +792,7 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "sum(irate(grafana_proxy_response_status_total[5m]))",
+          "expr": "sum(irate(grafana_proxy_response_status_total{dns_hostname=\"$hostname\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 4,
           "legendFormat": "proxy",
@@ -755,7 +804,7 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "sum(irate(grafana_page_response_status_total[5m]))",
+          "expr": "sum(irate(grafana_page_response_status_total{dns_hostname=\"$hostname\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 4,
           "legendFormat": "web",
@@ -767,58 +816,89 @@
       "type": "timeseries"
     },
     {
-      "columns": [],
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_VICTORIAMETRICS}"
       },
-      "fontSize": "100%",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "auto",
+            "inspect": false,
+            "minWidth": 100
+          },
+          "decimals": 0,
+          "displayName": "",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Time"
+              },
+              {
+                "id": "custom.align"
+              }
+            ]
+          }
+        ]
+      },
       "gridPos": {
         "h": 10,
         "w": 4,
         "x": 20,
         "y": 5
       },
-      "height": "",
       "id": 12,
       "links": [],
-      "scroll": true,
-      "showHeader": true,
-      "sort": {
-        "col": 0,
-        "desc": true
-      },
-      "styles": [
-        {
-          "alias": "Time",
-          "align": "auto",
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "link": false,
-          "pattern": "Time",
-          "type": "hidden"
-        },
-        {
-          "alias": "",
-          "align": "auto",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
           ],
-          "decimals": 0,
-          "pattern": "/.*/",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        }
-      ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Count"
+          }
+        ]
+      },
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "sort(topk(8, sum by (handler) (http_request_total{job=\"grafana\"})))",
+          "expr": "sort(topk(8, sum by (handler) (grafana_http_request_duration_seconds_bucket{dns_hostname=\"$hostname\",job=\"grafana\"})))",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 10,
@@ -828,8 +908,28 @@
         }
       ],
       "title": "Most used handlers",
-      "transform": "timeseries_to_rows",
-      "type": "table-old"
+      "transformations": [
+        {
+          "id": "seriesToRows",
+          "options": {
+            "reducers": []
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Metric": "Handler",
+              "Value": "Count"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
@@ -948,7 +1048,7 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "increase(grafana_alerting_active_alerts[1m])",
+          "expr": "increase(grafana_alerting_active_alerts{dns_hostname=\"$hostname\"}[1m])",
           "format": "time_series",
           "intervalFactor": 3,
           "legendFormat": "{{state}}",
@@ -1106,7 +1206,7 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": " sum (ALERTS)",
+          "expr": "sum(ALERTS)",
           "format": "time_series",
           "intervalFactor": 3,
           "legendFormat": "firing alerts",
@@ -1164,8 +1264,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1253,7 +1352,7 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "sum(go_goroutines{job=\"grafana\"})",
+          "expr": "sum(go_goroutines{dns_hostname=\"$hostname\",job=\"grafana\"})",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 4,
@@ -1268,7 +1367,7 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "sum(process_resident_memory_bytes{job=\"grafana\"})",
+          "expr": "sum(process_resident_memory_bytes{dns_hostname=\"$hostname\",job=\"grafana\"})",
           "format": "time_series",
           "intervalFactor": 4,
           "legendFormat": "memory usage",
@@ -1305,6 +1404,33 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "oomag_victoriametrics_01",
+          "value": "oomag_victoriametrics_01"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
+        },
+        "definition": "label_values(up{job=\"grafana\"}, dns_hostname)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "hostname",
+        "multi": false,
+        "name": "hostname",
+        "options": [],
+        "query": {
+          "query": "label_values(up{job=\"grafana\"}, dns_hostname)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
