@@ -67,7 +67,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 4,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -198,7 +198,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -250,7 +250,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.2.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -406,7 +406,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "targets": [
         {
           "datasource": {
@@ -414,7 +414,7 @@
             "uid": "${DS_VICTORIAMETRICS}"
           },
           "exemplar": true,
-          "expr": "sum(up{ dns_hostname=\"$hostname\", scrape_type!=\"custom\",scrape_type!=\"blackbox_exporter\"}) == 0",
+          "expr": "sum(up{ dns_hostname=\"$hostname\", scrape_type!=\"custom\",scrape_type!=\"blackbox_exporter\"} == 0)",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -460,6 +460,7 @@
         },
         "hide": 0,
         "includeAll": false,
+        "label": "DS_VICTORIAMETRICS",
         "multi": false,
         "name": "DS_VICTORIAMETRICS",
         "options": [],
@@ -479,6 +480,6 @@
   "timezone": "",
   "title": "StatusHost dashboard",
   "uid": "OM3fNam4k",
-  "version": 2,
+  "version": 38,
   "weekStart": ""
 }

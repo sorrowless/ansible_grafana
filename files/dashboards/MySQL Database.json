@@ -1,41 +1,4 @@
 {
-    "__inputs": [
-      {
-        "name": "DS_VICTORIAMETRICS",
-        "label": "VictoriaMetrics",
-        "description": "",
-        "type": "datasource",
-        "pluginId": "prometheus",
-        "pluginName": "Prometheus"
-      }
-    ],
-    "__elements": {},
-    "__requires": [
-      {
-        "type": "grafana",
-        "id": "grafana",
-        "name": "Grafana",
-        "version": "9.1.7"
-      },
-      {
-        "type": "panel",
-        "id": "graph",
-        "name": "Graph (old)",
-        "version": ""
-      },
-      {
-        "type": "datasource",
-        "id": "prometheus",
-        "name": "Prometheus",
-        "version": "1.0.0"
-      },
-      {
-        "type": "panel",
-        "id": "stat",
-        "name": "Stat",
-        "version": ""
-      }
-    ],
   "annotations": {
     "list": [
       {
@@ -70,7 +33,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 7362,
   "graphTooltip": 1,
-  "id": 20,
+  "id": 1,
   "links": [
     {
       "icon": "dashboard",
@@ -519,7 +482,7 @@
           },
           "datasourceErrors": {},
           "errors": {},
-          "expr": "(mysql_global_variables_innodb_buffer_pool_size{instance=\"$host\"} * 100) / on (instance) node_memory_MemTotal_bytes{instance=\"$host\"}",
+          "expr": "mysql_global_variables_innodb_buffer_pool_size{instance=\"$host\"} * 100 / on (dns_hostname) node_memory_MemTotal_bytes{instance=\"$host_mem\"}",
           "format": "time_series",
           "interval": "5m",
           "intervalFactor": 1,
@@ -1897,7 +1860,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2028,7 +1991,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2182,7 +2145,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2311,7 +2274,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2473,7 +2436,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2720,7 +2683,7 @@
       ],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2834,7 +2797,7 @@
       ],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2944,7 +2907,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3052,7 +3015,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3159,7 +3122,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3266,7 +3229,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3400,7 +3363,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3526,7 +3489,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3725,7 +3688,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3830,7 +3793,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3996,7 +3959,7 @@
       ],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -4166,7 +4129,7 @@
       ],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -4322,7 +4285,7 @@
       ],
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.2.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -5417,6 +5380,52 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
+        },
+        "definition": "label_values(node_memory_MemTotal_bytes, dns_hostname)",
+        "hide": 2,
+        "includeAll": false,
+        "label": "hostname_mem",
+        "multi": false,
+        "name": "hostname_mem",
+        "options": [],
+        "query": {
+          "query": "label_values(node_memory_MemTotal_bytes, dns_hostname)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_VICTORIAMETRICS}"
+        },
+        "definition": "query_result(node_memory_MemTotal_bytes{dns_hostname=\"$hostname\"})",
+        "hide": 2,
+        "includeAll": false,
+        "label": "host_mem",
+        "multi": false,
+        "name": "host_mem",
+        "options": [],
+        "query": {
+          "query": "query_result(node_memory_MemTotal_bytes{dns_hostname=\"$hostname\"})",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "/.*instance=\"([^\"]*).*/",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
       }
     ]
   },
@@ -5459,6 +5468,6 @@
   "timezone": "browser",
   "title": "MySQL Overview",
   "uid": "MQWgroiia",
-  "version": 3,
+  "version": 19,
   "weekStart": ""
 }

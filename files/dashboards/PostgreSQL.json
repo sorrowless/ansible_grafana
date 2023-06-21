@@ -1379,7 +1379,7 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_seq_page_cost",
+          "expr": "pg_settings_seq_page_cost{dns_hostname=\"$hostname\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
