@@ -26,7 +26,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 9628,
   "graphTooltip": 0,
-  "id": 16,
+  "id": 4,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1379,7 +1379,7 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_seq_page_cost",
+          "expr": "pg_settings_seq_page_cost{dns_hostname=\"$hostname\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -3320,6 +3320,6 @@
   "timezone": "",
   "title": "PostgreSQL Database",
   "uid": "000000040",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
