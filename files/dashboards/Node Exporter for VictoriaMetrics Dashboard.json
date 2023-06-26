@@ -1,53 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_VICTORIAMETRICS",
-      "label": "VictoriaMetrics",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "bargauge",
-      "name": "Bar gauge",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "9.1.7"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph (old)",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table-old",
-      "name": "Table (old)",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -76,7 +27,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 11074,
   "graphTooltip": 0,
-  "id": null,
+  "id": 7,
   "links": [
     {
       "$$hashKey": "object:2300",
@@ -1180,8 +1131,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": null
+                "color": "rgba(245, 54, 54, 0.9)"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1269,8 +1219,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -1608,8 +1557,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "color": "rgba(50, 172, 45, 0.97)"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1826,8 +1774,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": null
+                "color": "rgba(245, 54, 54, 0.9)"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1909,8 +1856,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": null
+                "color": "rgba(245, 54, 54, 0.9)"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -3893,7 +3839,12 @@
     "list": [
       {
         "allValue": "",
-        "current": {},
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_VICTORIAMETRICS}"
@@ -3919,7 +3870,11 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "h1-wu-e-l-s-cpr-web-01.infra.oom.ag_node_exporter",
+          "value": "h1-wu-e-l-s-cpr-web-01.infra.oom.ag_node_exporter"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_VICTORIAMETRICS}"
@@ -3945,7 +3900,11 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_VICTORIAMETRICS}"
@@ -3972,7 +3931,11 @@
       },
       {
         "allFormat": "glob",
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "h1-wu-e-l-s-cpr-web-01.infra.oom.ag:9100",
+          "value": "h1-wu-e-l-s-cpr-web-01.infra.oom.ag:9100"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_VICTORIAMETRICS}"
@@ -4000,7 +3963,11 @@
       },
       {
         "allFormat": "glob",
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_VICTORIAMETRICS}"
@@ -4082,7 +4049,11 @@
         "type": "interval"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "/",
+          "value": "/"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_VICTORIAMETRICS}"
@@ -4108,7 +4079,11 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "oom-cp-testnet-staging",
+          "value": "oom-cp-testnet-staging"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_VICTORIAMETRICS}"
@@ -4134,7 +4109,11 @@
         "useTags": false
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "1",
+          "value": "1"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_VICTORIAMETRICS}"
