@@ -26,10 +26,984 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 9628,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 24,
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 90,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "editorMode": "code",
+          "expr": "patroni_postgres_timeline",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Timeline",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "db 01"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "db 02"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "db 03"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 92,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "editorMode": "code",
+          "expr": "patroni_dcs_last_seen{dns_hostname=\"db-01\"}",
+          "legendFormat": "db 01",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "editorMode": "code",
+          "expr": "patroni_dcs_last_seen{dns_hostname=\"db-02\"}",
+          "hide": false,
+          "legendFormat": "db 02",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "editorMode": "code",
+          "expr": "patroni_dcs_last_seen{dns_hostname=\"db-03\"}",
+          "hide": false,
+          "legendFormat": "db 03",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Last screen to dcs",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 86,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "editorMode": "code",
+          "expr": "pg_stat_activity_max_tx_duration{dns_hostname=\"$instance\", datname=~\"$datname\"}",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Activity max tx duration",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 78,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
+          "editorMode": "code",
+          "expr": "pg_stat_database_sessions_fatal{dns_hostname=\"$instance\", datname=~\"$datname\"}",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Sessions fatal",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 84,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
+          "editorMode": "code",
+          "expr": "pg_stat_activity_count{dns_hostname=\"$instance\", datname=~\"$datname\"}",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "State count",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "id": 82,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
+          "editorMode": "code",
+          "expr": "pg_locks_count{dns_hostname=\"$instance\", datname=~\"$datname\", mode=~\"$mode\"}",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Lock table",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 72,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "editorMode": "code",
+          "expr": "pg_stat_replication_pg_wal_lsn_diff{dns_hostname=\"$instance\"}",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Replication pg wal lsn diff",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "id": 88,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "editorMode": "code",
+          "expr": "sum(patroni_postgres_streaming)",
+          "legendFormat": "Streaming",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "editorMode": "code",
+          "expr": "sum(patroni_master)",
+          "hide": false,
+          "legendFormat": "Master",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Streaming/Master",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_VICTORIAMETRICS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 32
+      },
+      "id": 80,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VICTORIAMETRICS}"
+          },
+          "editorMode": "code",
+          "expr": "pg_stat_database_sessions_abandoned{dns_hostname=\"$instance\", datname=~\"$datname\"}",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Sessions abandoned",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 32
+      },
+      "id": 76,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "editorMode": "code",
+          "expr": "pg_stat_database_sessions_killed{dns_hostname=\"$instance\", datname=~\"$datname\"}",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Sessions_killed",
+      "type": "timeseries"
+    },
     {
       "collapsed": false,
       "datasource": {
@@ -40,7 +1014,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 40
       },
       "id": 34,
       "panels": [],
@@ -81,8 +1055,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -98,7 +1071,7 @@
         "h": 2,
         "w": 4,
         "x": 0,
-        "y": 1
+        "y": 41
       },
       "id": 36,
       "links": [],
@@ -117,14 +1090,15 @@
         },
         "textMode": "name"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_static{release=\"$release\", instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "pg_static{release=\"$release\", dns_hostname=\"$instance\"}",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -161,8 +1135,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -178,7 +1151,7 @@
         "h": 2,
         "w": 4,
         "x": 4,
-        "y": 1
+        "y": 41
       },
       "id": 28,
       "links": [],
@@ -197,17 +1170,19 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "process_start_time_seconds{release=\"$release\", instance=\"$instance\"} * 1000",
+          "editorMode": "code",
+          "expr": "process_start_time_seconds{release=\"$release\", dns_hostname=\"$instance\", scrape_type=\"postgres_exporter\"} * 1000",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -239,8 +1214,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -256,7 +1230,7 @@
         "h": 2,
         "w": 4,
         "x": 8,
-        "y": 1
+        "y": 41
       },
       "id": 10,
       "links": [],
@@ -275,16 +1249,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "SUM(pg_stat_database_tup_fetched{datname=~\"$datname\", instance=~\"$instance\"})",
+          "editorMode": "code",
+          "expr": "SUM(pg_stat_database_tup_fetched{datname=~\"$datname\", dns_hostname=~\"$instance\"})",
           "format": "time_series",
           "intervalFactor": 2,
+          "range": true,
           "refId": "A",
           "step": 4
         }
@@ -317,8 +1293,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -334,7 +1309,7 @@
         "h": 2,
         "w": 4,
         "x": 12,
-        "y": 1
+        "y": 41
       },
       "id": 11,
       "links": [],
@@ -353,16 +1328,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "SUM(pg_stat_database_tup_inserted{release=\"$release\", datname=~\"$datname\", instance=~\"$instance\"})",
+          "editorMode": "code",
+          "expr": "SUM(pg_stat_database_tup_inserted{release=\"$release\", datname=~\"$datname\", dns_hostname=~\"$instance\"})",
           "format": "time_series",
           "intervalFactor": 2,
+          "range": true,
           "refId": "A",
           "step": 4
         }
@@ -395,8 +1372,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -412,7 +1388,7 @@
         "h": 2,
         "w": 4,
         "x": 16,
-        "y": 1
+        "y": 41
       },
       "id": 12,
       "links": [],
@@ -431,16 +1407,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "SUM(pg_stat_database_tup_updated{datname=~\"$datname\", instance=~\"$instance\"})",
+          "editorMode": "code",
+          "expr": "SUM(pg_stat_database_tup_updated{datname=~\"$datname\", dns_hostname=~\"$instance\"})",
           "format": "time_series",
           "intervalFactor": 2,
+          "range": true,
           "refId": "A",
           "step": 4
         }
@@ -473,8 +1451,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -490,7 +1467,7 @@
         "h": 2,
         "w": 4,
         "x": 20,
-        "y": 1
+        "y": 41
       },
       "id": 38,
       "links": [],
@@ -509,16 +1486,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_max_connections{release=\"$release\", instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "pg_settings_max_connections{release=\"$release\", dns_hostname=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -547,7 +1526,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 3
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 22,
@@ -569,7 +1548,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -583,10 +1562,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "avg(rate(process_cpu_seconds_total{release=\"$release\", instance=\"$instance\"}[5m]) * 1000)",
+          "editorMode": "code",
+          "expr": "avg(rate(process_cpu_seconds_total{release=\"$release\", dns_hostname=\"$instance\"}[5m]) * 1000)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "CPU Time",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -642,7 +1623,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 3
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 24,
@@ -664,7 +1645,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -678,10 +1659,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "avg(rate(process_resident_memory_bytes{release=\"$release\", instance=\"$instance\"}[5m]))",
+          "editorMode": "code",
+          "expr": "avg(rate(process_resident_memory_bytes{release=\"$release\", dns_hostname=\"$instance\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "Resident Mem",
+          "range": true,
           "refId": "A"
         },
         {
@@ -689,10 +1672,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "avg(rate(process_virtual_memory_bytes{release=\"$release\", instance=\"$instance\"}[5m]))",
+          "editorMode": "code",
+          "expr": "avg(rate(process_virtual_memory_bytes{release=\"$release\", dns_hostname=\"$instance\"}[5m]))",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "Virtual Mem",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -748,7 +1733,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 3
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 26,
@@ -770,7 +1755,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -784,10 +1769,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "process_open_fds{release=\"$release\", instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "process_open_fds{release=\"$release\", dns_hostname=\"$instance\", scrape_type=\"postgres_exporter\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "Open FD",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -831,7 +1818,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 50
       },
       "id": 32,
       "panels": [],
@@ -872,8 +1859,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -889,7 +1875,7 @@
         "h": 3,
         "w": 3,
         "x": 0,
-        "y": 11
+        "y": 51
       },
       "id": 40,
       "links": [],
@@ -908,16 +1894,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_shared_buffers_bytes{instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "pg_settings_shared_buffers_bytes{dns_hostname=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -949,8 +1937,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -966,7 +1953,7 @@
         "h": 3,
         "w": 3,
         "x": 3,
-        "y": 11
+        "y": 51
       },
       "id": 42,
       "links": [],
@@ -985,16 +1972,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_effective_cache_size_bytes{instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "pg_settings_effective_cache_size_bytes{dns_hostname=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1026,8 +2015,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1043,7 +2031,7 @@
         "h": 3,
         "w": 3,
         "x": 6,
-        "y": 11
+        "y": 51
       },
       "id": 44,
       "links": [],
@@ -1062,16 +2050,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_maintenance_work_mem_bytes{instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "pg_settings_maintenance_work_mem_bytes{dns_hostname=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1103,8 +2093,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1120,7 +2109,7 @@
         "h": 3,
         "w": 3,
         "x": 9,
-        "y": 11
+        "y": 51
       },
       "id": 46,
       "links": [],
@@ -1139,17 +2128,19 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_work_mem_bytes{instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "pg_settings_work_mem_bytes{dns_hostname=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1182,8 +2173,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1199,7 +2189,7 @@
         "h": 3,
         "w": 3,
         "x": 12,
-        "y": 11
+        "y": 51
       },
       "id": 48,
       "links": [],
@@ -1218,16 +2208,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_max_wal_size_bytes{instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "pg_settings_max_wal_size_bytes{dns_hostname=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1259,8 +2251,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1276,7 +2267,7 @@
         "h": 3,
         "w": 3,
         "x": 15,
-        "y": 11
+        "y": 51
       },
       "id": 50,
       "links": [],
@@ -1295,16 +2286,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_random_page_cost{instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "pg_settings_random_page_cost{dns_hostname=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1336,8 +2329,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1353,7 +2345,7 @@
         "h": 3,
         "w": 2,
         "x": 18,
-        "y": 11
+        "y": 51
       },
       "id": 52,
       "links": [],
@@ -1372,16 +2364,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_seq_page_cost{dns_hostname=\"$hostname\"}",
+          "editorMode": "code",
+          "expr": "pg_settings_seq_page_cost{dns_hostname=~\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1413,8 +2407,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1430,7 +2423,7 @@
         "h": 3,
         "w": 2,
         "x": 20,
-        "y": 11
+        "y": 51
       },
       "id": 54,
       "links": [],
@@ -1449,16 +2442,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_max_worker_processes{instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "pg_settings_max_worker_processes{dns_hostname=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1490,8 +2485,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1507,7 +2501,7 @@
         "h": 3,
         "w": 2,
         "x": 22,
-        "y": 11
+        "y": 51
       },
       "id": 56,
       "links": [],
@@ -1526,16 +2520,18 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_settings_max_parallel_workers{instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "pg_settings_max_parallel_workers{dns_hostname=\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1552,7 +2548,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 54
       },
       "id": 30,
       "panels": [],
@@ -1589,7 +2585,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 15
+        "y": 55
       },
       "hiddenSeries": false,
       "id": 1,
@@ -1614,7 +2610,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "pointradius": 3,
       "points": true,
       "renderer": "flot",
@@ -1628,11 +2624,13 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_stat_activity_count{datname=~\"$datname\", instance=~\"$instance\", state=\"active\"} !=0",
+          "editorMode": "code",
+          "expr": "pg_stat_activity_count{datname=~\"$datname\", dns_hostname=~\"$instance\", state=\"active\"} !=0",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{datname}}, s: {{state}}",
+          "range": true,
           "refId": "A",
           "step": 2
         }
@@ -1689,7 +2687,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 15
+        "y": 55
       },
       "hiddenSeries": false,
       "id": 60,
@@ -1712,7 +2710,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1726,10 +2724,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_database_xact_commit{instance=\"$instance\", datname=~\"$datname\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_database_xact_commit{dns_hostname=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{datname}} commits",
+          "range": true,
           "refId": "A"
         },
         {
@@ -1737,10 +2737,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_database_xact_rollback{instance=\"$instance\", datname=~\"$datname\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_database_xact_rollback{dns_hostname=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{datname}} rollbacks",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -1795,7 +2797,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 15
+        "y": 55
       },
       "hiddenSeries": false,
       "id": 8,
@@ -1820,7 +2822,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "9.1.7",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1834,10 +2836,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_stat_database_tup_updated{datname=~\"$datname\", instance=~\"$instance\"} != 0",
+          "editorMode": "code",
+          "expr": "pg_stat_database_tup_updated{datname=~\"$datname\", dns_hostname=~\"$instance\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{datname}}",
+          "range": true,
           "refId": "A",
           "step": 2
         }
@@ -1893,7 +2897,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 22
+        "y": 62
       },
       "hiddenSeries": false,
       "id": 5,
@@ -1918,7 +2922,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1932,10 +2936,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_stat_database_tup_fetched{datname=~\"$datname\", instance=~\"$instance\"} != 0",
+          "editorMode": "code",
+          "expr": "pg_stat_database_tup_fetched{datname=~\"$datname\", dns_hostname=~\"$instance\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{datname}}",
+          "range": true,
           "refId": "A",
           "step": 2
         }
@@ -1991,7 +2997,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 22
+        "y": 62
       },
       "hiddenSeries": false,
       "id": 6,
@@ -2016,7 +3022,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2030,10 +3036,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_stat_database_tup_inserted{datname=~\"$datname\", instance=~\"$instance\"} != 0",
+          "editorMode": "code",
+          "expr": "pg_stat_database_tup_inserted{datname=~\"$datname\", dns_hostname=~\"$instance\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{datname}}",
+          "range": true,
           "refId": "A",
           "step": 2
         }
@@ -2090,7 +3098,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 22
+        "y": 62
       },
       "hiddenSeries": false,
       "id": 3,
@@ -2116,7 +3124,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2130,10 +3138,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_locks_count{datname=~\"$datname\", instance=~\"$instance\", mode=~\"$mode\"} != 0",
+          "editorMode": "code",
+          "expr": "pg_locks_count{datname=~\"$datname\", dns_hostname=~\"$instance\", mode=~\"$mode\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{datname}},{{mode}}",
+          "range": true,
           "refId": "A",
           "step": 2
         }
@@ -2191,7 +3201,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 29
+        "y": 69
       },
       "hiddenSeries": false,
       "id": 14,
@@ -2212,8 +3222,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2227,10 +3240,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_stat_database_tup_returned{datname=~\"$datname\", instance=~\"$instance\"} != 0",
+          "editorMode": "code",
+          "expr": "pg_stat_database_tup_returned{datname=~\"$datname\", dns_hostname=~\"$instance\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{datname}}",
+          "range": true,
           "refId": "A",
           "step": 2
         }
@@ -2286,7 +3301,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 29
+        "y": 69
       },
       "hiddenSeries": false,
       "id": 4,
@@ -2307,8 +3322,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2322,10 +3340,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_stat_activity_count{datname=~\"$datname\", instance=~\"$instance\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
+          "editorMode": "code",
+          "expr": "pg_stat_activity_count{datname=~\"$datname\", dns_hostname=~\"$instance\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{datname}}, s: {{state}}",
+          "range": true,
           "refId": "A",
           "step": 2
         }
@@ -2382,7 +3402,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 29
+        "y": 69
       },
       "hiddenSeries": false,
       "id": 7,
@@ -2403,8 +3423,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2418,10 +3441,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_stat_database_tup_deleted{datname=~\"$datname\", instance=~\"$instance\"} != 0",
+          "editorMode": "code",
+          "expr": "pg_stat_database_tup_deleted{datname=~\"$datname\", dns_hostname=~\"$instance\"} != 0",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{datname}}",
+          "range": true,
           "refId": "A",
           "step": 2
         }
@@ -2478,7 +3503,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 36
+        "y": 76
       },
       "hiddenSeries": false,
       "id": 62,
@@ -2497,8 +3522,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2512,10 +3540,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "pg_stat_database_blks_hit{instance=\"$instance\", datname=~\"$datname\"} / (pg_stat_database_blks_read{instance=\"$instance\", datname=~\"$datname\"} + pg_stat_database_blks_hit{instance=\"$instance\", datname=~\"$datname\"})",
+          "editorMode": "code",
+          "expr": "pg_stat_database_blks_hit{dns_hostname=\"$instance\", datname=~\"$datname\"} / (pg_stat_database_blks_read{dns_hostname=\"$instance\", datname=~\"$datname\"} + pg_stat_database_blks_hit{dns_hostname=\"$instance\", datname=~\"$datname\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{ datname }}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -2572,7 +3602,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 36
+        "y": 76
       },
       "hiddenSeries": false,
       "id": 64,
@@ -2591,8 +3621,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2606,10 +3639,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_bgwriter_buffers_backend{instance=\"$instance\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_bgwriter_buffers_backend{dns_hostname=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "buffers_backend",
+          "range": true,
           "refId": "A"
         },
         {
@@ -2617,10 +3652,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_bgwriter_buffers_alloc{instance=\"$instance\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_bgwriter_buffers_alloc{dns_hostname=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "buffers_alloc",
+          "range": true,
           "refId": "B"
         },
         {
@@ -2628,10 +3665,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_bgwriter_buffers_backend_fsync{instance=\"$instance\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_bgwriter_buffers_backend_fsync{dns_hostname=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "backend_fsync",
+          "range": true,
           "refId": "C"
         },
         {
@@ -2639,10 +3678,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_bgwriter_buffers_checkpoint{instance=\"$instance\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_bgwriter_buffers_checkpoint{dns_hostname=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "buffers_checkpoint",
+          "range": true,
           "refId": "D"
         },
         {
@@ -2650,10 +3691,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_bgwriter_buffers_clean{instance=\"$instance\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_bgwriter_buffers_clean{dns_hostname=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "buffers_clean",
+          "range": true,
           "refId": "E"
         }
       ],
@@ -2709,7 +3752,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 36
+        "y": 76
       },
       "hiddenSeries": false,
       "id": 66,
@@ -2728,8 +3771,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2743,10 +3789,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_database_conflicts{instance=\"$instance\", datname=~\"$datname\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_database_conflicts{dns_hostname=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{datname}} conflicts",
+          "range": true,
           "refId": "B"
         },
         {
@@ -2754,10 +3802,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_database_deadlocks{instance=\"$instance\", datname=~\"$datname\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_database_deadlocks{dns_hostname=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{datname}} deadlocks",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -2814,7 +3864,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 43
+        "y": 83
       },
       "hiddenSeries": false,
       "id": 68,
@@ -2833,8 +3883,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2848,10 +3901,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_database_temp_bytes{instance=\"$instance\", datname=~\"$datname\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_database_temp_bytes{dns_hostname=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{datname}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -2907,7 +3962,7 @@
         "h": 7,
         "w": 16,
         "x": 8,
-        "y": 43
+        "y": 83
       },
       "hiddenSeries": false,
       "id": 70,
@@ -2925,8 +3980,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.0",
+      "pluginVersion": "9.3.2",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2940,10 +3998,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_bgwriter_checkpoint_write_time{instance=\"$instance\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_bgwriter_checkpoint_write_time{dns_hostname=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "write_time - Total amount of time that has been spent in the portion of checkpoint processing where files are written to disk.",
+          "range": true,
           "refId": "B"
         },
         {
@@ -2951,10 +4011,12 @@
             "type": "prometheus",
             "uid": "${DS_VICTORIAMETRICS}"
           },
-          "expr": "irate(pg_stat_bgwriter_checkpoint_sync_time{instance=\"$instance\"}[5m])",
+          "editorMode": "code",
+          "expr": "irate(pg_stat_bgwriter_checkpoint_sync_time{dns_hostname=\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "sync_time - Total amount of time that has been spent in the portion of checkpoint processing where files are synchronized to disk.",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -2992,18 +4054,14 @@
   "refresh": "10s",
   "schemaVersion": 37,
   "style": "dark",
-  "tags": [
-    "postgres",
-    "db",
-    "stats"
-  ],
+  "tags": [],
   "templating": {
     "list": [
       {
         "current": {
           "selected": false,
-          "text": "cp_testnet",
-          "value": "cp_testnet"
+          "text": "db-01",
+          "value": "db-01"
         },
         "datasource": {
           "type": "prometheus",
@@ -3012,12 +4070,13 @@
         "definition": "label_values(pg_up, dns_hostname)",
         "hide": 0,
         "includeAll": false,
+        "label": "instance",
         "multi": false,
-        "name": "hostname",
+        "name": "instance",
         "options": [],
         "query": {
           "query": "label_values(pg_up, dns_hostname)",
-          "refId": "VictoriaMetrics-hostname-Variable-Query"
+          "refId": "StandardVariableQuery"
         },
         "refresh": 2,
         "regex": "",
@@ -3031,58 +4090,28 @@
       {
         "current": {
           "selected": false,
-          "text": "o-tm-e-l-p-cpr-mix-02.infra.oom.ag:9187",
-          "value": "o-tm-e-l-p-cpr-mix-02.infra.oom.ag:9187"
+          "text": "multiadmin",
+          "value": "multiadmin"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${DS_VICTORIAMETRICS}"
         },
-        "definition": "query_result(pg_up{dns_hostname=\"$hostname\"})",
-        "hide": 2,
-        "includeAll": false,
-        "label": "Host",
-        "multi": false,
-        "name": "host",
-        "options": [],
-        "query": {
-          "query": "query_result(pg_up{dns_hostname=\"$hostname\"})",
-          "refId": "VictoriaMetrics-host-Variable-Query"
-        },
-        "refresh": 2,
-        "regex": "/.*instance=\"([^\"]+).*/",
-        "skipUrlSync": false,
-        "sort": 1,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_VICTORIAMETRICS}"
-        },
-        "definition": "",
+        "definition": "label_values(pg_stat_database_sessions{dns_hostname=~\"$instance\"},datname)",
         "hide": 0,
-        "includeAll": true,
-        "label": "Database",
-        "multi": true,
+        "includeAll": false,
+        "label": "datname",
+        "multi": false,
         "name": "datname",
         "options": [],
         "query": {
-          "query": "label_values(datname)",
-          "refId": "VictoriaMetrics-datname-Variable-Query"
+          "query": "label_values(pg_stat_database_sessions{dns_hostname=~\"$instance\"},datname)",
+          "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
-        "sort": 1,
+        "sort": 0,
         "tagValuesQuery": "",
         "tagsQuery": "",
         "type": "query",
@@ -3143,15 +4172,20 @@
           }
         ],
         "query": "1s,5s,1m,5m,1h,6h,1d",
+        "queryValue": "",
         "refresh": 2,
         "skipUrlSync": false,
         "type": "interval"
       },
       {
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -3242,36 +4276,6 @@
       {
         "current": {
           "selected": false,
-          "text": "o-tm-e-l-p-cpr-mix-02.infra.oom.ag:9187",
-          "value": "o-tm-e-l-p-cpr-mix-02.infra.oom.ag:9187"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_VICTORIAMETRICS}"
-        },
-        "definition": "query_result(up{instance=\"$host\"})",
-        "hide": 2,
-        "includeAll": false,
-        "label": "instance",
-        "multi": false,
-        "name": "instance",
-        "options": [],
-        "query": {
-          "query": "query_result(up{instance=\"$host\"})",
-          "refId": "VictoriaMetrics-instance-Variable-Query"
-        },
-        "refresh": 1,
-        "regex": "/.*instance=\"([^\"]+).*/",
-        "skipUrlSync": false,
-        "sort": 1,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "current": {
-          "selected": false,
           "text": "VictoriaMetrics",
           "value": "VictoriaMetrics"
         },
@@ -3289,7 +4293,7 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -3318,8 +4322,8 @@
     ]
   },
   "timezone": "",
-  "title": "PostgreSQL Database",
-  "uid": "000000040",
-  "version": 3,
+  "title": "PostgreSQL Database 360 (Dev)",
+  "uid": "pbrD-X7Iz",
+  "version": 4,
   "weekStart": ""
 }
