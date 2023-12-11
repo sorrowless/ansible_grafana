@@ -9,6 +9,8 @@ grafana_data:
   # Docker labels
   docker_labels: []
 
+grafana_docker_image: "grafana/grafana"
+grafana_port: "3000"
 grafana_storage: /var/grafana/storage
 grafana_provisioning_dir: /var/grafana/provisioning
 grafana_ldap_host_config_path: /var/grafana/config
@@ -21,7 +23,7 @@ grafana_user_list: []
   #   email: "x@gmail.com"
   #   password: "passwordX"
 
-grafana_url: http://localhost:3000
+grafana_url: "http://127.0.0.1:{{ grafana_port }}"
 grafana_datasources:
   - name: Prometheus
     url: http://victoriametrics:8428
@@ -64,3 +66,27 @@ grafana_ldap_servers:
         grafana_admin: true
       - group_dn: "cn=grafana.viewers,ou=groups,{{ grafana_ldap_root }}"
         org_role: "Viewer"
+
+grafana_stack_name: victoriametrics
+grafana_swarm_cluster: false
+grafana_swarm_deploy:
+  mode: replicated
+  replicas: 1
+  placement:
+    constraints:
+      - node.labels.victoriametrics == true
+
+# example grafana_swarm_deploy:
+#   mode: replicated
+#   replicas: 1
+#   update_config:
+#     order: start-first
+#   placement:
+#     max_replicas_per_node: 1
+#     constraints:
+#       - node.labels.victoriametrics == true
+#   resources:
+#     limits:
+#       memory: 512M
+#     reservations:
+#       memory: 256M
