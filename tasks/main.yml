@@ -81,10 +81,10 @@
       version: '2'
       services:
         grafana:
-          image: "grafana/grafana"
+          image: "{{ grafana_docker_image }}"
           container_name: "grafana"
           ports:
-            - "127.0.0.1:3000:3000"
+            - "127.0.0.1:{{ grafana_port }}:3000"
           volumes:
             - "{{ grafana_storage }}:/var/lib/grafana"
             - "{{ grafana_provisioning_dir }}:/etc/grafana/provisioning"
@@ -103,6 +103,60 @@
         default:
           external:
             name: "{{ grafana_docker_network_name }}"
+  when: not grafana_swarm_cluster or grafana_swarm_manager is undefined
+
+- name: Deploy grafana to docker swarm
+  block:
+    - name: Ensure pip installation
+      package:
+        name: "python3-pip"
+        state: present
+
+    - name: Install newer version of pip itself
+      pip:
+        name: "pip"
+        state: latest
+        executable: pip3
+
+    - name: Install jsondiff from pip
+      pip:
+        name: "jsondiff"
+        state: present
+        executable: pip3
+
+    - name: Deploy docker grafana container in swarm
+      community.docker.docker_stack:
+        state: present
+        name: "{{ grafana_stack_name }}"
+        compose:
+          - version: '3.5'
+            services:
+              grafana:
+                image: "{{ grafana_docker_image }}"
+                hostname: "grafana"
+                labels: "{{ grafana.docker_labels }}"
+                ports:
+                  - "{{ grafana_port }}:3000"
+                volumes:
+                  - "{{ grafana_storage }}:/var/lib/grafana"
+                  - "{{ grafana_provisioning_dir }}:/etc/grafana/provisioning"
+                  - "{{ grafana_ldap_host_config_path }}:{{ grafana_ldap_config_path}}"
+                environment:
+                  GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+                  GF_SECURITY_ADMIN_USER: "{{ grafana.admin_user }}"
+                  GF_SECURITY_ADMIN_PASSWORD: "{{ grafana.admin_password }}"
+                  GF_AUTH_LDAP_ENABLED: "{{ grafana_ldap_auth_enabled | string }}"
+                  GF_AUTH_LDAP_CONFIG_FILE: "{{ grafana_ldap_config_path }}/ldap.toml"
+                  GF_AUTH_LDAP_ALLOW_SIGN_UP: "{{ grafana_ldap_allow_sign_up | string }}"
+                deploy: "{{ grafana_swarm_deploy }}"
+            networks:
+              default:
+                external:
+                  name: "{{ grafana_docker_network_name }}"
+  delegate_to: "{{ grafana_swarm_manager }}"
+  when:
+    - grafana_swarm_cluster
+    - grafana_swarm_manager is defined
 
 - name: Create new users
   uri:
