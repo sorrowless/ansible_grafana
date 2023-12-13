@@ -153,6 +153,7 @@
               default:
                 external:
                   name: "{{ grafana_docker_network_name }}"
+      run_once: True
   delegate_to: "{{ grafana_swarm_manager }}"
   when:
     - grafana_swarm_cluster
