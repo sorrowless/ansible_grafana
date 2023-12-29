@@ -18,6 +18,9 @@ grafana_ldap_host_config_path: /var/grafana/config
 # Docker-related networking settings
 grafana_docker_network_name: prom_network
 
+grafana_container_name: "grafana"
+grafana_docker_hostname: "grafana"
+
 grafana_user_list: []
   # - name: "Mrs. X"
   #   email: "x@gmail.com"

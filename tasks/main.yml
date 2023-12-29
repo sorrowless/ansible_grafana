@@ -82,14 +82,14 @@
       services:
         grafana:
           image: "{{ grafana_docker_image }}"
-          container_name: "grafana"
+          container_name: "{{ grafana_container_name }}"
           ports:
             - "127.0.0.1:{{ grafana_port }}:3000"
           volumes:
             - "{{ grafana_storage }}:/var/lib/grafana"
             - "{{ grafana_provisioning_dir }}:/etc/grafana/provisioning"
             - "{{ grafana_ldap_host_config_path }}:{{ grafana_ldap_config_path}}"
-          hostname: "grafana"
+          hostname: "{{ grafana_docker_hostname }}"
           restart: always
           labels: "{{ grafana.docker_labels }}"
           environment:
@@ -128,12 +128,13 @@
       community.docker.docker_stack:
         state: present
         name: "{{ grafana_stack_name }}"
+        with_registry_auth: yes
         compose:
           - version: '3.5'
             services:
               grafana:
                 image: "{{ grafana_docker_image }}"
-                hostname: "grafana"
+                hostname: "{{ grafana_docker_hostname }}"
                 labels: "{{ grafana.docker_labels }}"
                 ports:
                   - "{{ grafana_port }}:3000"
