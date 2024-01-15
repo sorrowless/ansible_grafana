@@ -14,6 +14,10 @@ grafana_port: "3000"
 grafana_storage: /var/grafana/storage
 grafana_provisioning_dir: /var/grafana/provisioning
 grafana_ldap_host_config_path: /var/grafana/config
+grafana_volumes:
+  - "{{ grafana_storage }}:/var/lib/grafana"
+  - "{{ grafana_provisioning_dir }}:/etc/grafana/provisioning"
+  - "{{ grafana_ldap_host_config_path }}:{{ grafana_ldap_config_path}}"
 
 # Docker-related networking settings
 grafana_docker_network_name: prom_network
