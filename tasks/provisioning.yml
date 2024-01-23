@@ -1,0 +1,42 @@
+---
+- name: Grafana | Create provisioning directory
+  ansible.builtin.file:
+    dest: "{{ item }}"
+    state: directory
+    mode: "0755"
+    owner: root
+    group: root
+  with_items:
+    - "{{ grafana_provisioning_dir }}"
+    - "{{ grafana_provisioning_dir }}/datasources"
+    - "{{ grafana_provisioning_dir }}/dashboards"
+    - "{{ grafana_provisioning_dir }}/notifiers"
+    - "{{ grafana_provisioning_dir }}/dashboards_list"
+
+- name: Grafana | Ensure datasources configuration
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ grafana_provisioning_dir }}/datasources/{{ item | basename }}"
+    owner: root
+    group: root
+    mode: "0644"
+  with_fileglob:
+    - "../templates/datasources/*"
+
+- name: Grafana | Ensure dashboards configuration
+  ansible.builtin.template:
+    src: dashboards/dashboards.yaml
+    dest: "{{ grafana_provisioning_dir }}/dashboards/"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Grafana | Ensure dashboards themselves
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ grafana_provisioning_dir }}/dashboards_list/"
+    owner: root
+    group: root
+    mode: "0644"
+  with_fileglob:
+    - "dashboards/{{ glob }}"

@@ -1,18 +1,18 @@
 ---
 - name: Grafana | Create common directory for Loki
-  file:
+  ansible.builtin.file:
     dest: "{{ grafana_loki_storage }}"
     state: directory
     # TODO(sbog): change it from 0777 to according 0755 and fix user/group ownership
-    mode: 0777
+    mode: "0777"
     owner: root
     group: root
 
 - name: Grafana | Create Loki specific directories
-  file:
+  ansible.builtin.file:
     dest: "{{ item }}"
     state: directory
-    mode: 0755
+    mode: "0755"
     owner: "{{ grafana_loki_directory_owner }}"
     group: "{{ grafana_loki_directory_group }}"
   with_items:
@@ -21,12 +21,12 @@
     - "{{ grafana_loki_storage }}/data/rules"
 
 - name: Grafana | Ensure Loki config
-  template:
+  ansible.builtin.template:
     src: "loki/local-config.yaml"
     dest: "{{ grafana_loki_storage }}/local-config.yaml"
     owner: "{{ grafana_loki_directory_owner }}"
     group: "{{ grafana_loki_directory_group }}"
-    mode: 0644
+    mode: "0644"
 
 - name: Loki | Start docker Loki container
   community.docker.docker_compose:

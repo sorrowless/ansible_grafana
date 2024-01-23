@@ -1,74 +1,38 @@
 ---
 - name: Grafana | Merge user data with default
-  set_fact:
+  ansible.builtin.set_fact:
     grafana: "{{ grafana_data | combine(grafana, recursive=True) }}"
   tags:
     - always
 
 - name: Grafana | Create storage directory for Grafana
-  file:
+  ansible.builtin.file:
     dest: "{{ grafana_storage }}"
     state: directory
     # TODO(sbog): change it from 0777 to according 0755 and fix user/group ownership
-    mode: 0777
+    mode: "0777"
     owner: root
     group: root
 
-- name: Grafana | Create provisioning directory
-  file:
-    dest: "{{ item }}"
-    state: directory
-    mode: 0755
-    owner: root
-    group: root
-  with_items:
-    - "{{ grafana_provisioning_dir }}"
-    - "{{ grafana_provisioning_dir }}/datasources"
-    - "{{ grafana_provisioning_dir }}/dashboards"
-    - "{{ grafana_provisioning_dir }}/notifiers"
-    - "{{ grafana_provisioning_dir }}/dashboards_list"
-
-- name: Grafana | Ensure datasources
-  template:
-    src: "{{ item }}"
-    dest: "{{ grafana_provisioning_dir }}/datasources/{{ item|basename }}"
-    owner: root
-    group: root
-    mode: 0644
-  with_fileglob:
-    - "../templates/datasources/*"
-
-- name: Grafana | Ensure dashboards configuration
-  template:
-    src: dashboards/dashboards.yaml
-    dest: "{{ grafana_provisioning_dir }}/dashboards/"
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Grafana | Ensure dashboards themselves
-  copy:
-    src: "{{ item }}"
-    dest: "{{ grafana_provisioning_dir }}/dashboards_list/"
-    owner: root
-    group: root
-    mode: 0644
-  with_fileglob:
-    - "dashboards/*"
+- name: Grafana | Provision
+  ansible.builtin.include_tasks: provisioning.yml
+  loop: "{{ grafana_provisioning_dashboards }}"
+  loop_control:
+    loop_var: glob
 
 - name: Grafana | Create LDAP config directory
-  file:
+  ansible.builtin.file:
     dest: "{{ grafana_ldap_host_config_path }}"
     state: directory
-    mode: 0755
+    mode: "0755"
     owner: root
     group: root
 
 - name: Grafana | Ensure LDAP config
-  template:
+  ansible.builtin.template:
     src: config/ldap.toml.j2
     dest: "{{ grafana_ldap_host_config_path }}/ldap.toml"
-    mode: 0644
+    mode: "0644"
     owner: root
     group: root
   when: grafana_ldap_auth_enabled
@@ -103,20 +67,24 @@
   when: not grafana_swarm_cluster or grafana_swarm_manager is undefined
 
 - name: Deploy grafana to docker swarm
+  delegate_to: "{{ grafana_swarm_manager }}"
+  when:
+    - grafana_swarm_cluster
+    - grafana_swarm_manager is defined
   block:
     - name: Ensure pip installation
-      package:
+      ansible.builtin.package:
         name: "python3-pip"
         state: present
 
     - name: Install newer version of pip itself
-      pip:
+      ansible.builtin.pip:
         name: "pip"
         state: latest
         executable: pip3
 
     - name: Install jsondiff from pip
-      pip:
+      ansible.builtin.pip:
         name: "jsondiff"
         state: present
         executable: pip3
@@ -125,7 +93,7 @@
       community.docker.docker_stack:
         state: present
         name: "{{ grafana_stack_name }}"
-        with_registry_auth: yes
+        with_registry_auth: true
         compose:
           - version: '3.5'
             services:
@@ -152,18 +120,14 @@
             volumes:
               grafana:
                 driver: local
-      run_once: True
-  delegate_to: "{{ grafana_swarm_manager }}"
-  when:
-    - grafana_swarm_cluster
-    - grafana_swarm_manager is defined
+      run_once: true
 
 - name: Create new users
-  uri:
+  ansible.builtin.uri:
     url: "{{ grafana_url }}/api/admin/users"
     user: "{{ grafana.admin_user }}"
     password: "{{ grafana.admin_password }}"
-    force_basic_auth: yes
+    force_basic_auth: true
     method: POST
     headers:
       Accept: application/json
@@ -183,5 +147,5 @@
   tags: [add_users]
 
 - name: Import Loki tasks
-  import_tasks: loki.yml
+  ansible.builtin.import_tasks: loki.yml
   when: grafana_loki_install
