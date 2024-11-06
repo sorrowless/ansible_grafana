@@ -29,10 +29,9 @@
     mode: "0644"
 
 - name: Loki | Start docker Loki container
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_name: loki
     definition:
-      version: '2'
       services:
         loki:
           image: "grafana/loki:2.6.1"
@@ -47,5 +46,5 @@
           labels: "{{ grafana.docker_labels }}"
       networks:
         default:
-          external:
-            name: "{{ grafana_docker_network_name }}"
+          external: true
+          name: "{{ grafana_docker_network_name }}"
