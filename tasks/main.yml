@@ -39,10 +39,9 @@
   tags: ldap
 
 - name: Grafana | Start docker Grafana container
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_name: grafana
     definition:
-      version: '2'
       services:
         grafana:
           image: "{{ grafana_docker_image }}"
@@ -62,8 +61,8 @@
             GF_AUTH_LDAP_ALLOW_SIGN_UP: "{{ grafana_ldap_allow_sign_up | string }}"
       networks:
         default:
-          external:
-            name: "{{ grafana_docker_network_name }}"
+          external: true
+          name: "{{ grafana_docker_network_name }}"
   when: not grafana_swarm_cluster or grafana_swarm_manager is undefined
 
 - name: Deploy grafana to docker swarm
