@@ -38,6 +38,41 @@
   when: grafana_ldap_auth_enabled
   tags: ldap
 
+- name: Grafana | Create config ini directory
+  ansible.builtin.file:
+    dest: "{{ grafana_config_ini_directory }}"
+    state: directory
+    mode: "0777"
+    owner: root
+    group: root
+  when: grafana_setup_renderer
+
+- name: Grafana | Ensure grafana.ini template
+  ansible.builtin.template:
+    src: config/grafana.ini.j2
+    dest: "{{ grafana_config_ini_directory }}/grafana.ini"
+    mode: "0644"
+    owner: root
+    group: root
+  when: grafana_setup_renderer
+
+- name: Grafana | Create renderer config directory
+  ansible.builtin.file:
+    dest: "{{ grafana_renderer_config_dir }}"
+    state: directory
+    mode: "0755"
+    owner: root
+    group: root
+
+- name: Grafana | Ensure renderer config
+  ansible.builtin.template:
+    src: renderer/config.json.j2
+    dest: "{{ grafana_renderer_config_dir }}/config.json"
+    mode: "0644"
+    owner: root
+    group: root
+  when: grafana_setup_renderer
+
 - name: Grafana | Generate compose
   set_fact:
     docker_grafana_configuration_services: |
@@ -58,7 +93,7 @@
               {% if grafana_setup_renderer -%}
               GF_RENDERING_SERVER_URL: http://{{ grafana_renderer_hostname }}:8081/render
               GF_RENDERING_CALLBACK_URL: http://{{ grafana_docker_hostname }}:3000/
-              GF_RENDERING_AUTH_TOKEN: "{{ grafana_renderer_token }}"
+              GF_LOG_FILTERS: rendering:debug
               {% endif %}
 
             {% if not grafana_swarm_cluster or grafana_swarm_manager is undefined -%}
@@ -77,11 +112,14 @@
           {% if grafana_setup_renderer -%}
           grafana-image-renderer:
             image: {{ grafana_renderer_image }}
+            container_name: {{ grafana_container_name }}-renderer
             hostname: "{{ grafana_renderer_hostname }}"
+            restart: always
             ports:
               - {{ grafana_renderer_ports }}:8081
-            environment:
-              AUTH_TOKEN: "{{ grafana_renderer_token }}"
+
+            volumes:
+              - {{ grafana_renderer_config_dir }}/config.json:/usr/src/app/config.json  
 
             {% if grafana_container_networks | length > 0 -%}
             networks: {{ grafana_container_networks.keys() | list | to_yaml  | indent(6) }}
