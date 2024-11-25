@@ -13,6 +13,7 @@ grafana_docker_image: "grafana/grafana"
 grafana_port: "3000"
 grafana_storage: /var/grafana/storage
 grafana_provisioning_dir: /var/grafana/provisioning
+grafana_config_ini_directory: /var/grafana
 # Dashboards to provision. Allows to specify array of fileglobs
 # to provision. Each fileglob will be handled independent
 grafana_provisioning_dashboards:
@@ -20,11 +21,17 @@ grafana_provisioning_dashboards:
 grafana_ldap_host_config_path: /var/grafana/config
 grafana_volumes:
   - "{{ grafana_storage }}:/var/lib/grafana"
+  - "{{ grafana_config_ini_directory }}/grafana.ini:/etc/grafana/grafana.ini"
   - "{{ grafana_provisioning_dir }}:/etc/grafana/provisioning"
   - "{{ grafana_ldap_host_config_path }}:{{ grafana_ldap_config_path }}"
+grafana_external_volumes: {}
 
 # Docker-related networking settings
-grafana_docker_network_name: prom_network
+# grafana_docker_network_name: prom_network
+grafana_container_networks:
+  default:
+    external:
+      name: prom_network
 
 grafana_container_name: "grafana"
 grafana_docker_hostname: "grafana"
@@ -101,3 +108,14 @@ grafana_swarm_deploy:
 #       memory: 512M
 #     reservations:
 #       memory: 256M
+
+# renderer options
+grafana_setup_renderer: false
+grafana_renderer_image: grafana/grafana-image-renderer:3.11.6
+grafana_renderer_hostname: grafana-renderer
+grafana_renderer_ports: 8081
+# Place your grafana token here
+# Refer to docs for more information: 
+# https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/authorize-services/
+grafana_renderer_token: None 
+grafana_renderer_config_dir: /var/grafana/renderer
