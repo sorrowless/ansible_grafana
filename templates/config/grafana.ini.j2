@@ -1,3 +1,9 @@
+[server]
+read_timeout = 0
+
+[dataproxy]
+timeout = 300
+
 {% if grafana_setup_renderer -%}
 [rendering]
 renderer_token = {{ grafana_renderer_token }}
