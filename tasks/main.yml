@@ -125,6 +125,10 @@
             networks: {{ grafana_container_networks.keys() | list | to_yaml  | indent(6) }}
             {% endif %}
 
+            deploy:
+              resources:
+                limits:
+                  memory: {{ grafana_renderer_memory_limit }}
           {% endif %}
 
     docker_grafana_networks: |

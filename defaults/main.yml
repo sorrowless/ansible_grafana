@@ -119,3 +119,4 @@ grafana_renderer_ports: 8081
 # https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/authorize-services/
 grafana_renderer_token: None 
 grafana_renderer_config_dir: /var/grafana/renderer
+grafana_renderer_memory_limit: 8g
