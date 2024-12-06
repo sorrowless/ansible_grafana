@@ -129,6 +129,7 @@
               resources:
                 limits:
                   memory: {{ grafana_renderer_memory_limit }}
+                  cpus: "{{ grafana_renderer_cpu_limit }}"
           {% endif %}
 
     docker_grafana_networks: |

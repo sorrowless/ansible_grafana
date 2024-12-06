@@ -120,3 +120,4 @@ grafana_renderer_ports: 8081
 grafana_renderer_token: None 
 grafana_renderer_config_dir: /var/grafana/renderer
 grafana_renderer_memory_limit: 8g
+grafana_renderer_cpu_limit: "4.0"
