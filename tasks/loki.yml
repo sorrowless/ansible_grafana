@@ -34,7 +34,7 @@
     definition:
       services:
         loki:
-          image: "grafana/loki:2.6.1"
+          image: "{{ grafana_loki_image }}"
           container_name: "loki"
           hostname: "loki"
           ports:
