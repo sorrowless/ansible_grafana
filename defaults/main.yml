@@ -50,6 +50,7 @@ grafana_datasources:
     isDefault: true
 
 grafana_loki_install: false
+grafana_loki_image: "grafana/loki:3.1.1"
 grafana_loki_storage: /var/loki/
 grafana_loki_directory_owner: 10001
 grafana_loki_directory_group: 10001
