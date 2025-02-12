@@ -45,7 +45,6 @@
     mode: "0777"
     owner: root
     group: root
-  when: grafana_setup_renderer
 
 - name: Grafana | Ensure grafana.ini template
   ansible.builtin.template:
@@ -54,7 +53,6 @@
     mode: "0644"
     owner: root
     group: root
-  when: grafana_setup_renderer
 
 - name: Grafana | Create renderer config directory
   ansible.builtin.file:
@@ -119,7 +117,7 @@
               - {{ grafana_renderer_ports }}:8081
 
             volumes:
-              - {{ grafana_renderer_config_dir }}/config.json:/usr/src/app/config.json  
+              - {{ grafana_renderer_config_dir }}/config.json:/usr/src/app/config.json
 
             {% if grafana_container_networks | length > 0 -%}
             networks: {{ grafana_container_networks.keys() | list | to_yaml  | indent(6) }}
