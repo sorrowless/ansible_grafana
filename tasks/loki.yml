@@ -19,6 +19,9 @@
     - "{{ grafana_loki_storage }}/data"
     - "{{ grafana_loki_storage }}/data/chunks"
     - "{{ grafana_loki_storage }}/data/rules"
+    - "{{ grafana_loki_storage }}/data/tsdb-index"
+    - "{{ grafana_loki_storage }}/data/tsdb-cache"
+    - "{{ grafana_loki_storage }}/data/retention"
 
 - name: Grafana | Ensure Loki config
   ansible.builtin.template:
@@ -44,6 +47,8 @@
             - "{{ grafana_loki_storage }}:/var/lib/loki"
           restart: always
           labels: "{{ grafana.docker_labels }}"
+          logging:
+            driver: "{{ docker_log_driver | default('journald')}}"
       networks:
         default:
           external: true
