@@ -4,6 +4,12 @@ read_timeout = 0
 [dataproxy]
 timeout = 300
 
+{% if grafana_metrics | default(false) | bool %}
+[metrics]
+enabled = true
+interval_seconds = 10
+{% endif %}
+
 {% if grafana_setup_renderer -%}
 [rendering]
 renderer_token = {{ grafana_renderer_token }}
