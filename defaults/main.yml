@@ -133,4 +133,9 @@ grafana_metrics: false
 # name = Keycloak-OAuth
 # allow_sign_up = true
 # this section will simply be added to grafana.ini configuration
-grafana_custom_config: false
+grafana_custom_config: |
+  [server]
+  read_timeout = 0
+
+  [dataproxy]
+  timeout = 300
