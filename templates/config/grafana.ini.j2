@@ -14,3 +14,7 @@ interval_seconds = 10
 [rendering]
 renderer_token = {{ grafana_renderer_token }}
 {% endif %}
+
+{% if grafana_custom_config -%}
+{{ grafana_custom_config }}
+{% endif %}

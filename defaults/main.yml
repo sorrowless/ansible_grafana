@@ -125,3 +125,12 @@ grafana_renderer_cpu_limit: "4.0"
 
 # metrics options
 grafana_metrics: false
+
+# custom config
+# example:
+# [auth.generic_oauth]
+# enabled = true
+# name = Keycloak-OAuth
+# allow_sign_up = true
+# this section will simply be added to grafana.ini configuration
+grafana_custom_config: false
