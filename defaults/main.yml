@@ -28,10 +28,10 @@ grafana_volumes:
 grafana_external_volumes: {}
 
 # Docker-related networking settings
-# grafana_docker_network_name: prom_network
+grafana_docker_network_name: prom_network
 grafana_container_networks:
   default:
-    name: prom_network
+    name: "{{ grafana_docker_network_name }}"
     external: true
 
 grafana_container_name: "grafana"
