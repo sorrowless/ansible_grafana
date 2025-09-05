@@ -46,10 +46,7 @@
           volumes:
             - "{{ grafana_loki_storage }}:/var/lib/loki"
           restart: always
-          labels: "{{ grafana.docker_labels }}"
+          labels: "{{ grafana_loki_docker_labels }}"
           logging:
             driver: "{{ docker_log_driver | default('journald')}}"
-      networks:
-        default:
-          external: true
-          name: "{{ grafana_docker_network_name }}"
+      networks: "{{ grafana_container_networks }}"
