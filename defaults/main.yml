@@ -28,10 +28,10 @@ grafana_volumes:
 grafana_external_volumes: {}
 
 # Docker-related networking settings
-# grafana_docker_network_name: prom_network
+grafana_docker_network_name: prom_network
 grafana_container_networks:
   default:
-    name: prom_network
+    name: "{{ grafana_docker_network_name }}"
     external: true
 
 grafana_container_name: "grafana"
@@ -55,6 +55,7 @@ grafana_loki_image: "grafana/loki:3.1.1"
 grafana_loki_storage: /var/loki/
 grafana_loki_directory_owner: 10001
 grafana_loki_directory_group: 10001
+grafana_loki_docker_labels: []
 
 grafana_ldap_auth_enabled: false
 grafana_ldap_root: "dc=example,dc=com"

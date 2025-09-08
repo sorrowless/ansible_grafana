@@ -100,7 +100,8 @@
             {% endif %}
 
             {% if grafana_swarm_cluster or grafana_swarm_manager is defined -%}
-            deploy: "{{ grafana_swarm_deploy }}"
+            deploy: 
+                {{ grafana_swarm_deploy | to_yaml | indent(6) }}
             {% endif %}
 
             {% if grafana_container_networks | length > 0 -%}
