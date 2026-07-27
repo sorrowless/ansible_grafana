@@ -1,0 +1,11 @@
+apiVersion: 1
+
+repositories:
+  - name: grafana-dashboards
+    type: git
+    url: "{{ grafana_dashboards_repo_url }}"
+    branch: "{{ grafana_dashboards_repo_version }}"
+    path: "{{ grafana_dashboards_repo_path }}"
+    {% if grafana_gitsync_token | default('') != '' %}
+    token: "{{ grafana_gitsync_token }}"
+    {% endif %}

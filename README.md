@@ -32,6 +32,35 @@ manager through which the stack will be deployed in variable
 grafana_swarm_manager: swarm-manager01
 ```
 
+#### How to Add / Edit Dashboards
+
+##### Option 1: Via Git Repository (Recommended)
+1. Add or update your `.json` dashboard file in `dashboards/` directory of repository `https://github.com/oom-ag/grafana-dashboards.git`.
+2. Ensure the dashboard contains valid `title` and `uid`.
+3. Commit and push to `main` branch. Grafana GitSync will automatically pull new changes.
+
+##### Option 2: Via Grafana UI
+1. Open Grafana UI and navigate to the dashboard.
+2. Make your edits and click **Save**.
+3. Select **Create Pull Request / Merge Request** option in Grafana UI to sync changes back to Git.
+
+#### Local Testing (Docker / VM)
+
+1. **Run Playbook**:
+   ```bash
+   ansible-playbook -i tests/inventory tests/test.yml
+   ```
+
+2. **Verify Grafana Health**:
+   ```bash
+   curl -s http://localhost:3000/api/health
+   ```
+
+3. **Verify Synchronized Dashboards via API**:
+   ```bash
+   curl -s -u admin:password http://localhost:3000/api/search | jq .
+   ```
+
 #### Dependencies
 
 None

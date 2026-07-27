@@ -17,10 +17,23 @@ grafana_ports:
 grafana_storage: /var/grafana/storage
 grafana_provisioning_dir: /var/grafana/provisioning
 grafana_config_ini_directory: /var/grafana
+
+# GitSync and Provisioning Settings
+# Cleanup legacy file-based provisioning (read-only dashboards)
+grafana_cleanup_old_provisioning: true
+# Enable Grafana GitSync feature
+grafana_gitsync_enabled: true
+# Target repository with dashboards
+grafana_dashboards_repo_url: "https://github.com/oom-ag/grafana-dashboards.git"
+grafana_dashboards_repo_version: "main"
+grafana_dashboards_repo_path: "dashboards"
+# Personal Access Token / Git Token for pushing MR/PR from Grafana UI
+grafana_gitsync_token: ""
 # Dashboards to provision. Allows to specify array of fileglobs
 # to provision. Each fileglob will be handled independent
 grafana_provisioning_dashboards:
   - "*"
+
 grafana_ldap_host_config_path: /var/grafana/config
 grafana_volumes:
   - "{{ grafana_storage }}:/var/lib/grafana"

@@ -16,9 +16,7 @@
 
 - name: Grafana | Provision
   ansible.builtin.include_tasks: provisioning.yml
-  loop: "{{ grafana_provisioning_dashboards }}"
-  loop_control:
-    loop_var: glob
+
 
 - name: Grafana | Create LDAP config directory
   ansible.builtin.file:
