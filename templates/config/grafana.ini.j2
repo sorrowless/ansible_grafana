@@ -1,6 +1,7 @@
 {% if grafana_gitsync_enabled | default(true) | bool %}
 [feature_toggles]
 provisioning = true
+kubernetesDashboards = true
 {% endif %}
 
 {% if grafana_metrics | default(false) | bool %}

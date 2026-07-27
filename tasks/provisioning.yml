@@ -17,8 +17,9 @@
     group: root
   with_items:
     - "{{ grafana_provisioning_dir }}"
+    - "{{ grafana_provisioning_dir }}/dashboards"
     - "{{ grafana_provisioning_dir }}/datasources"
-    - "{{ grafana_provisioning_dir }}/repositories"
+    - "{{ grafana_provisioning_dir }}/repository"
     - "{{ grafana_provisioning_dir }}/notifiers"
 
 - name: Grafana | Ensure datasources configuration
@@ -31,10 +32,10 @@
   with_fileglob:
     - "../templates/datasources/*"
 
-- name: Grafana | Ensure GitSync repository configuration
+- name: Grafana | Ensure GitSync repository configuration file
   ansible.builtin.template:
-    src: provisioning/repositories.yaml.j2
-    dest: "{{ grafana_provisioning_dir }}/repositories/repositories.yaml"
+    src: repository.yaml.j2
+    dest: "{{ grafana_provisioning_dir }}/repository/repository.yaml"
     owner: root
     group: root
     mode: "0644"

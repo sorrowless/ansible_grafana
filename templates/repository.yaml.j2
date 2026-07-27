@@ -4,16 +4,21 @@ metadata:
   name: grafana-dashboards
   namespace: default
 spec:
-  title: "Grafana Dashboards"
-  type: github
   sync:
     enabled: true
-    target: folder
     intervalSeconds: 30
+    target: folderless
+  workflows:
+    - write
+    - branch
+  title: "Grafana Dashboards"
+  type: github
   github:
     url: "{{ grafana_dashboards_repo_url }}"
     branch: "{{ grafana_dashboards_repo_version }}"
-    path: "{{ grafana_dashboards_repo_path }}"
-    {% if grafana_gitsync_token | default('') != '' %}
-    token: "{{ grafana_gitsync_token }}"
-    {% endif %}
+    path: "{{ grafana_dashboards_repo_path }}/"
+{% if grafana_gitsync_token | default('') != '' %}
+secure:
+  token:
+    create: "{{ grafana_gitsync_token }}"
+{% endif %}

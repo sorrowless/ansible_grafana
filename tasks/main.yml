@@ -200,6 +200,31 @@
             volumes: "{{ docker_grafana_external_volumes | from_yaml }}"
       run_once: true
 
+- name: Grafana | Wait for Grafana API to become ready
+  ansible.builtin.uri:
+    url: "{{ grafana_url }}/api/health"
+    method: GET
+    status_code: 200
+  register: _grafana_health
+  until: _grafana_health.status == 200
+  retries: 15
+  delay: 3
+  when: grafana_gitsync_enabled | default(true) | bool
+
+- name: Grafana | Register GitSync Repository via API
+  ansible.builtin.uri:
+    url: "{{ grafana_url }}/apis/provisioning.grafana.app/v0alpha1/namespaces/default/repositories"
+    user: "{{ grafana.admin_user }}"
+    password: "{{ grafana.admin_password }}"
+    force_basic_auth: true
+    method: POST
+    headers:
+      Accept: application/json
+      Content-Type: application/yaml
+    body: "{{ lookup('ansible.builtin.template', 'repository.yaml.j2') }}"
+    status_code: [200, 201, 409]
+  when: grafana_gitsync_enabled | default(true) | bool
+
 - name: Create new users
   ansible.builtin.uri:
     url: "{{ grafana_url }}/api/admin/users"
