@@ -10,9 +10,9 @@
     dest: "{{ grafana_storage }}"
     state: directory
     # TODO(sbog): change it from 0777 to according 0755 and fix user/group ownership
-    mode: "0777"
-    owner: root
-    group: root
+    mode: "0775"
+    owner: "472"
+    group: "472"
 
 - name: Grafana | Provision
   ansible.builtin.include_tasks: provisioning.yml
@@ -40,7 +40,7 @@
   ansible.builtin.file:
     dest: "{{ grafana_config_ini_directory }}"
     state: directory
-    mode: "0777"
+    mode: "0755"
     owner: root
     group: root
 
@@ -211,7 +211,7 @@
   delay: 3
   when: grafana_gitsync_enabled | default(true) | bool
 
-- name: Grafana | Register GitSync Repository via API
+- name: Grafana | Register specific dashboards via GitSync API
   ansible.builtin.uri:
     url: "{{ grafana_url }}/apis/provisioning.grafana.app/v0alpha1/namespaces/default/repositories"
     user: "{{ grafana.admin_user }}"
@@ -221,9 +221,12 @@
     headers:
       Accept: application/json
       Content-Type: application/yaml
-    body: "{{ lookup('ansible.builtin.template', 'repository.yaml.j2') }}"
-    status_code: [200, 201, 409]
-  when: grafana_gitsync_enabled | default(true) | bool
+    body: "{{ lookup('ansible.builtin.template', 'repository_item.j2') }}"
+    status_code: [200, 201, 409] # 409 - already registered.
+  loop: "{{ grafana_sync_dashboards }}"
+  when: 
+    - grafana_gitsync_enabled | default(true) | bool
+    - grafana_sync_dashboards | length > 0
 
 - name: Create new users
   ansible.builtin.uri:

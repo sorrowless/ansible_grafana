@@ -6,6 +6,7 @@
   loop:
     - "{{ grafana_provisioning_dir }}/dashboards/dashboards.yaml"
     - "{{ grafana_provisioning_dir }}/dashboards_list"
+    - "{{ grafana_provisioning_dir }}/repository/repository.yaml" # Зачищаем старый конфиг единого репо
   when: grafana_cleanup_old_provisioning | default(true) | bool
 
 - name: Grafana | Create provisioning directories
@@ -19,7 +20,6 @@
     - "{{ grafana_provisioning_dir }}"
     - "{{ grafana_provisioning_dir }}/dashboards"
     - "{{ grafana_provisioning_dir }}/datasources"
-    - "{{ grafana_provisioning_dir }}/repository"
     - "{{ grafana_provisioning_dir }}/notifiers"
 
 - name: Grafana | Ensure datasources configuration
@@ -31,12 +31,3 @@
     mode: "0644"
   with_fileglob:
     - "../templates/datasources/*"
-
-- name: Grafana | Ensure GitSync repository configuration file
-  ansible.builtin.template:
-    src: repository.yaml.j2
-    dest: "{{ grafana_provisioning_dir }}/repository/repository.yaml"
-    owner: root
-    group: root
-    mode: "0644"
-  when: grafana_gitsync_enabled | default(true) | bool

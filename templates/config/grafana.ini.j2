@@ -2,6 +2,9 @@
 [feature_toggles]
 provisioning = true
 kubernetesDashboards = true
+
+[provisioning]
+max_repositories = 0
 {% endif %}
 
 {% if grafana_metrics | default(false) | bool %}
