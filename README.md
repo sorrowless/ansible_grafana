@@ -34,6 +34,20 @@ grafana_swarm_manager: swarm-manager01
 
 #### How to Add / Edit Dashboards
 
+Use `grafana_sync_dashboards` variable and example from defaults/main.yml to deploy specific dashboards.
+
+Configuring GitSync provisioning use follow variables:
+
+```
+# GitSync and Provisioning Settings
+grafana_gitsync_enabled: true
+
+# Source Repository with dashboards
+grafana_dashboards_repo_url: "https://github.com/oom-ag/grafana-dashboards.git"
+grafana_dashboards_repo_version: "main"
+grafana_gitsync_token: "{{ vault_grafana_dashboards_repo_token }}"
+```
+
 ##### Option 1: Via Git Repository (Recommended)
 1. Add or update your `.json` dashboard file in `dashboards/` directory of repository `https://github.com/oom-ag/grafana-dashboards.git`.
 2. Ensure the dashboard contains valid `title` and `uid`.
