@@ -6,7 +6,7 @@
   loop:
     - "{{ grafana_provisioning_dir }}/dashboards/dashboards.yaml"
     - "{{ grafana_provisioning_dir }}/dashboards_list"
-    - "{{ grafana_provisioning_dir }}/repository/repository.yaml" # Зачищаем старый конфиг единого репо
+    - "{{ grafana_provisioning_dir }}/repository/repository.yaml"
   when: grafana_cleanup_old_provisioning | default(true) | bool
 
 - name: Grafana | Create provisioning directories
