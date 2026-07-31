@@ -25,6 +25,14 @@ grafana_gitsync_enabled: true
 # Source Repository with dashboards
 grafana_dashboards_repo_url: "https://github.com/oom-ag/grafana-dashboards.git"
 grafana_dashboards_repo_version: "main"
+
+# https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/observability-as-code/git-sync/git-sync-setup/#connect-with-a-github-personal-access-token
+# Required token PAT token permissions: repo, read:packages, read:org, workflow
+# Administration: Read-only permission (enables validation of branch protection rules against the configured branch when users can push directly to it; may be used in the future to check other repository settings and make the setup process smoother)
+# Contents: Read and write permission
+# Metadata: Read-only permission
+# Pull requests: Read and write permission
+# Webhooks: Read and write permission
 grafana_gitsync_token: "{{ vault_grafana_dashboards_repo_token }}"
 
 # Explicit list of dashboards to deploy on this specific host/group.
