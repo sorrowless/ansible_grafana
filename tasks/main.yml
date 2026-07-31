@@ -211,6 +211,43 @@
   delay: 3
   when: grafana_gitsync_enabled | default(true) | bool
 
+- name: Grafana | Get currently registered GitSync Repositories via API
+  ansible.builtin.uri:
+    url: "{{ grafana_url }}/apis/provisioning.grafana.app/v0alpha1/namespaces/default/repositories"
+    user: "{{ grafana.admin_user }}"
+    password: "{{ grafana.admin_password }}"
+    force_basic_auth: true
+    method: GET
+    headers:
+      Accept: application/json
+    status_code: [200, 404]
+  register: _existing_repositories
+  when: grafana_gitsync_enabled | default(true) | bool
+
+- name: Grafana | Calculate desired and stale GitSync Repositories
+  ansible.builtin.set_fact:
+    _desired_repo_names: "{{ grafana_sync_dashboards | map('regex_replace', '[^a-zA-Z0-9-]', '-') | map('lower') | map('regex_replace', '^', 'repo-') | list }}"
+    _current_repo_names: "{{ (_existing_repositories.json['items'] | default([])) | map(attribute='metadata.name') | list }}"
+  when:
+    - grafana_gitsync_enabled | default(true) | bool
+    - _existing_repositories.json is defined
+
+- name: Grafana | Remove stale GitSync Repositories via API
+  ansible.builtin.uri:
+    url: "{{ grafana_url }}/apis/provisioning.grafana.app/v0alpha1/namespaces/default/repositories/{{ item }}"
+    user: "{{ grafana.admin_user }}"
+    password: "{{ grafana.admin_password }}"
+    force_basic_auth: true
+    method: DELETE
+    headers:
+      Accept: application/json
+    status_code: [200, 202, 204, 404]
+  loop: "{{ _current_repo_names | select('match', '^repo-') | difference(_desired_repo_names) | list }}"
+  when:
+    - grafana_gitsync_enabled | default(true) | bool
+    - _current_repo_names is defined
+    - (_current_repo_names | select('match', '^repo-') | difference(_desired_repo_names) | list) | length > 0
+
 - name: Grafana | Register specific dashboards via GitSync API
   ansible.builtin.uri:
     url: "{{ grafana_url }}/apis/provisioning.grafana.app/v0alpha1/namespaces/default/repositories"
