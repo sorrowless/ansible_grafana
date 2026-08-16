@@ -17,10 +17,67 @@ grafana_ports:
 grafana_storage: /var/grafana/storage
 grafana_provisioning_dir: /var/grafana/provisioning
 grafana_config_ini_directory: /var/grafana
-# Dashboards to provision. Allows to specify array of fileglobs
-# to provision. Each fileglob will be handled independent
-grafana_provisioning_dashboards:
-  - "*"
+
+# GitSync and Provisioning Settings
+grafana_cleanup_old_provisioning: true
+grafana_gitsync_enabled: true
+
+# Source Repository with dashboards
+grafana_dashboards_repo_url: "https://github.com/oom-ag/grafana-dashboards.git"
+grafana_dashboards_repo_version: "main"
+
+# https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/observability-as-code/git-sync/git-sync-setup/#connect-with-a-github-personal-access-token
+# Required token PAT token permissions: repo, read:packages, read:org, workflow
+# Administration: Read-only permission (enables validation of branch protection rules against the configured branch when users can push directly to it; may be used in the future to check other repository settings and make the setup process smoother)
+# Contents: Read and write permission
+# Metadata: Read-only permission
+# Pull requests: Read and write permission
+# Webhooks: Read and write permission
+grafana_gitsync_token: "{{ vault_grafana_dashboards_repo_token }}"
+
+# Explicit list of dashboards to deploy on this specific host/group.
+# Examples (from https://github.com/oom-ag/grafana-dashboards): 
+# grafana_sync_dashboards:
+#   - "alertmanager"
+#   - "apt-monitoring"
+#   - "backup-reporter-dashboard"
+#   - "blockchain-nodes-mainnet"
+#   - "cadvisor-dashboard"
+#   - "chrony"
+#   - "common-hosts-info"
+#   - "django-metrics"
+#   - "embily_dashboard"
+#   - "grafana-metrics"
+#   - "haproxy-common"
+#   - "haproxy-nalitek"
+#   - "hosts-availability-v2"
+#   - "mtproxy-sessions"
+#   - "mysql-overview"
+#   - "nginx-dashboard"
+#   - "node-exporter-for-victoriametrics-dashboard"
+#   - "node-exporter-summary"
+#   - "nodejs-application-dashboard"
+#   - "nodes-usage"
+#   - "overall-hosts-availability"
+#   - "pingstation"
+#   - "postgresql-exporter"
+#   - "postgresql-overview"
+#   - "postgresql-patroni"
+#   - "redis-dashboard-for-prometheus-redis-exporter"
+#   - "statushost-dashboard"
+#   - "sync-status"
+#   - "traefik-dashboard"
+#   - "varnish"
+#   - "versions"
+#   - "victoriametrics"
+#   - "victoriametrics-summary"
+#   - "vmagent"
+#   - "vmalert"
+#   - "xray-logs-data"
+#   - "xray-vpn-servers"
+
+grafana_sync_dashboards: []
+
 grafana_ldap_host_config_path: /var/grafana/config
 grafana_volumes:
   - "{{ grafana_storage }}:/var/lib/grafana"

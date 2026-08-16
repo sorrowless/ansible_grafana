@@ -1,0 +1,23 @@
+apiVersion: provisioning.grafana.app/v0alpha1
+kind: Repository
+metadata:
+  name: "repo-{{ item | regex_replace('[^a-zA-Z0-9-]', '-') | lower }}"
+  namespace: default
+spec:
+  sync:
+    enabled: true
+    intervalSeconds: 30
+    target: folderless
+  workflows:
+    - branch
+  title: "Dashboard Folder: {{ item }}"
+  type: github
+  github:
+    url: "{{ grafana_dashboards_repo_url }}"
+    branch: "{{ grafana_dashboards_repo_version }}"
+    path: "dashboards/{{ item }}"
+{% if grafana_gitsync_token | default('') != '' %}
+secure:
+  token:
+    create: "{{ grafana_gitsync_token }}"
+{% endif %}
