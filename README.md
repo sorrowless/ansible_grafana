@@ -54,7 +54,7 @@ grafana_gitsync_token: "{{ vault_grafana_dashboards_repo_token }}"
 # List of dashboard slugs to deploy on this host/group.
 # Supports both simple strings (default branch) and objects (custom branch/repo):
 grafana_sync_dashboards:
-  # Universal dashboards (uses default branch "main"):
+  # Universal dashboards (uses default branch from {{ "grafana_dashboards_repo_version" }}):
   - "alertmanager"
   - "node-exporter-summary"
   - "victoriametrics"
