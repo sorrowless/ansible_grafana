@@ -36,7 +36,7 @@ grafana_dashboards_repo_version: "main"
 grafana_gitsync_token: "{{ vault_grafana_dashboards_repo_token }}"
 
 # Explicit list of dashboards to deploy on this specific host/group.
-# Examples (from https://github.com/oom-ag/grafana-dashboards): 
+# Examples (from https://github.com/oom-ag/grafana-dashboards):
 # grafana_sync_dashboards:
 #   - "alertmanager"
 #   - "apt-monitoring"
@@ -77,6 +77,16 @@ grafana_gitsync_token: "{{ vault_grafana_dashboards_repo_token }}"
 #   - "xray-vpn-servers"
 
 grafana_sync_dashboards: []
+
+# Add permissions to root placed dashboards
+# Example
+# grafana_dashboards_permissonis:
+#   - role: Viewer
+#     permission: 1
+#   - role: Editor
+#     permission: 2
+
+grafana_dashboards_permissonis: []
 
 grafana_ldap_host_config_path: /var/grafana/config
 grafana_volumes:
@@ -211,7 +221,7 @@ grafana_loki_config:
     http_server_read_timeout: 190s
 
   querier:
-    max_concurrent: 12 
+    max_concurrent: 12
 
   common:
     path_prefix: /loki
