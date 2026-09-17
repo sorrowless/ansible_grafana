@@ -97,7 +97,7 @@
             {% endif %}
 
             {% if grafana_swarm_cluster or grafana_swarm_manager is defined -%}
-            deploy: 
+            deploy:
                 {{ grafana_swarm_deploy | to_yaml | indent(6) }}
             {% endif %}
 
@@ -151,7 +151,7 @@
   when: not grafana_swarm_cluster or grafana_swarm_manager is undefined
 
 - name: Deploy grafana to docker swarm
-  delegate_to: "{{ grafana_swarm_manager }}"
+  delegate_to: "{{ grafana_swarm_manager | default(omit) }}"
   when:
     - grafana_swarm_cluster
     - grafana_swarm_manager is defined
@@ -266,7 +266,7 @@
     body: "{{ lookup('ansible.builtin.template', 'repository_item.j2') }}"
     status_code: [200, 201, 409] # 409 - already registered.
   loop: "{{ grafana_sync_dashboards }}"
-  when: 
+  when:
     - grafana_gitsync_enabled | default(true) | bool
     - grafana_sync_dashboards | length > 0
 
