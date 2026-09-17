@@ -226,7 +226,12 @@
 
 - name: Grafana | Calculate desired and stale GitSync Repositories
   ansible.builtin.set_fact:
-    _desired_repo_names: "{{ grafana_sync_dashboards | map('regex_replace', '[^a-zA-Z0-9-]', '-') | map('lower') | map('regex_replace', '^', 'repo-') | list }}"
+    _desired_repo_names: >-
+      [
+      {% for d in grafana_sync_dashboards %}
+        "repo-{{ (d.name if d is mapping else d) | regex_replace('[^a-zA-Z0-9-]', '-') | lower }}"{{ ',' if not loop.last else '' }}
+      {% endfor %}
+      ]
     _current_repo_names: "{{ (_existing_repositories.json['items'] | default([])) | map(attribute='metadata.name') | list }}"
   when:
     - grafana_gitsync_enabled | default(true) | bool

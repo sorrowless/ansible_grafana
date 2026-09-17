@@ -1,7 +1,11 @@
+{% set _name = item.name if item is mapping else item %}
+{% set _branch = item.branch if (item is mapping and item.branch is defined) else grafana_dashboards_repo_version %}
+{% set _url = item.url if (item is mapping and item.url is defined) else grafana_dashboards_repo_url %}
+{% set _token = item.token if (item is mapping and item.token is defined) else grafana_gitsync_token %}
 apiVersion: provisioning.grafana.app/v0alpha1
 kind: Repository
 metadata:
-  name: "repo-{{ item | regex_replace('[^a-zA-Z0-9-]', '-') | lower }}"
+  name: "repo-{{ _name | regex_replace('[^a-zA-Z0-9-]', '-') | lower }}"
   namespace: default
 spec:
   sync:
@@ -10,14 +14,14 @@ spec:
     target: folderless
   workflows:
     - branch
-  title: "Dashboard Folder: {{ item }}"
+  title: "Dashboard Folder: {{ _name }}"
   type: github
   github:
-    url: "{{ grafana_dashboards_repo_url }}"
-    branch: "{{ grafana_dashboards_repo_version }}"
-    path: "dashboards/{{ item }}"
-{% if grafana_gitsync_token | default('') != '' %}
+    url: "{{ _url }}"
+    branch: "{{ _branch }}"
+    path: "dashboards/{{ _name }}"
+{% if _token | default('') != '' %}
 secure:
   token:
-    create: "{{ grafana_gitsync_token }}"
+    create: "{{ _token }}"
 {% endif %}

@@ -48,13 +48,24 @@ grafana_cleanup_old_provisioning: true
 
 # Source repository settings (URL without .git suffix)
 grafana_dashboards_repo_url: "https://github.com/oom-ag/grafana-dashboards"
-grafana_dashboards_repo_version: "main"
+grafana_dashboards_repo_version: "main" # Default branch for string items
 grafana_gitsync_token: "{{ vault_grafana_dashboards_repo_token }}"
 
-# List of dashboard slugs to deploy on this host/group
+# List of dashboard slugs to deploy on this host/group.
+# Supports both simple strings (default branch) and objects (custom branch/repo):
 grafana_sync_dashboards:
-  - "postgresql-patroni"
+  # Universal dashboards (uses default branch from {{ "grafana_dashboards_repo_version" }}):
+  - "alertmanager"
   - "node-exporter-summary"
+  - "victoriametrics"
+
+  # Project-specific dashboards (overrides branch):
+  - name: "foreign-traffic-hypervisors"
+    branch: "vpn"
+  - name: "common-hosts-info"
+    branch: "vpn"
+  - name: "mtproxy-sessions"
+    branch: "vpn"
 ```
 
 ##### Declarative Dashboard Lifecycle
