@@ -307,29 +307,12 @@
           | list
         )
       }}
-    _gitsync_root_dashboard_title: >-
-      {{
-        _gitsync_root_dashboard_title | default([]) +
-        (
-          item.json['items']
-          | selectattr('group', 'equalto', 'dashboard.grafana.app')
-          | selectattr('resource', 'equalto', 'dashboards')
-          | rejectattr('folder', 'defined')
-          | map(attribute='title')
-          | list
-        )
-      }}
   loop: "{{ _gitsync_repository_resources.results }}"
   loop_control:
     label: "{{ item.item.name if item.item is mapping else item.item }}"
   when:
     - grafana_gitsync_enabled | default(true) | bool
     - grafana_dashboards_permissonis | length > 0
-  tags: permissions
-
-- name: show vars
-  ansible.builtin.debug:
-    var: _gitsync_root_dashboard_title
   tags: permissions
 
 - name: Grafana | Set permissions for GitSync root dashboards
