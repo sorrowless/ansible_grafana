@@ -79,6 +79,8 @@ grafana_gitsync_token: "{{ vault_grafana_dashboards_repo_token }}"
 grafana_sync_dashboards: []
 
 # Add permissions to root placed dashboards
+# For more information:
+# https://grafana.com/docs/grafana/next/developer-resources/api-reference/http-api/api-legacy/dashboard_permissions/
 # Example
 # grafana_dashboards_permissonis:
 #   - role: Viewer
