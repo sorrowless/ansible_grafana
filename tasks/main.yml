@@ -97,7 +97,7 @@
             {% endif %}
 
             {% if grafana_swarm_cluster or grafana_swarm_manager is defined -%}
-            deploy: 
+            deploy:
                 {{ grafana_swarm_deploy | to_yaml | indent(6) }}
             {% endif %}
 
@@ -151,7 +151,7 @@
   when: not grafana_swarm_cluster or grafana_swarm_manager is undefined
 
 - name: Deploy grafana to docker swarm
-  delegate_to: "{{ grafana_swarm_manager }}"
+  delegate_to: "{{ grafana_swarm_manager | default(omit) }}"
   when:
     - grafana_swarm_cluster
     - grafana_swarm_manager is defined
@@ -266,9 +266,80 @@
     body: "{{ lookup('ansible.builtin.template', 'repository_item.j2') }}"
     status_code: [200, 201, 409] # 409 - already registered.
   loop: "{{ grafana_sync_dashboards }}"
-  when: 
+  when:
     - grafana_gitsync_enabled | default(true) | bool
     - grafana_sync_dashboards | length > 0
+
+- name: Grafana | Get GitSync repository resources
+  ansible.builtin.uri:
+    url: "{{ grafana_url }}/apis/provisioning.grafana.app/v0alpha1/namespaces/default/repositories/{{ 'repo-' ~ ((item.name if item is mapping else item) | regex_replace('[^a-zA-Z0-9-]', '-') | lower) }}/resources"
+    user: "{{ grafana.admin_user }}"
+    password: "{{ grafana.admin_password }}"
+    force_basic_auth: true
+    method: GET
+    headers:
+      Accept: application/json
+    status_code: 200
+    timeout: 30
+  register: _gitsync_repository_resources
+  retries: 20
+  delay: 5
+  until: _gitsync_repository_resources.status == 200
+  loop: "{{ grafana_sync_dashboards }}"
+  loop_control:
+    label: "{{ item.name if item is mapping else item }}"
+  when:
+    - grafana_gitsync_enabled | default(true) | bool
+    - grafana_dashboards_permissonis | length > 0
+  tags: permissions
+
+- name: Grafana | Collect GitSync root dashboard UIDs
+  ansible.builtin.set_fact:
+    _gitsync_root_dashboard_uids: >-
+      {{
+        _gitsync_root_dashboard_uids | default([]) +
+        (
+          item.json['items']
+          | selectattr('group', 'equalto', 'dashboard.grafana.app')
+          | selectattr('resource', 'equalto', 'dashboards')
+          | rejectattr('folder', 'defined')
+          | map(attribute='name')
+          | list
+        )
+      }}
+  loop: "{{ _gitsync_repository_resources.results }}"
+  loop_control:
+    label: "{{ item.item.name if item.item is mapping else item.item }}"
+  when:
+    - grafana_gitsync_enabled | default(true) | bool
+    - grafana_dashboards_permissonis | length > 0
+  tags: permissions
+
+- name: Grafana | Set permissions for GitSync root dashboards
+  ansible.builtin.uri:
+    url: "{{ grafana_url }}/api/dashboards/uid/{{ item }}/permissions"
+    user: "{{ grafana.admin_user }}"
+    password: "{{ grafana.admin_password }}"
+    force_basic_auth: true
+    method: POST
+    headers:
+      Content-Type: application/json
+    body_format: json
+    body:
+      items: "{{ grafana_dashboards_permissonis }}"
+    status_code: 200
+    timeout: 30
+  register: _gitsync_permissions_result
+  retries: 10
+  delay: 3
+  until: _gitsync_permissions_result.status == 200
+  loop: "{{ _gitsync_root_dashboard_uids }}"
+  loop_control:
+    label: "{{ item }}"
+  when:
+    - grafana_gitsync_enabled | default(true) | bool
+    - grafana_dashboards_permissonis | length > 0
+  tags: permissions
 
 - name: Create new users
   ansible.builtin.uri:
